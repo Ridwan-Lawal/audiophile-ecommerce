@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brown-dark: #d87d4a;
+  --color-brown-light: #fbaf85;
+  --color-almost-black: #101010;
+  --color-black: #000000;
+  --color-white-3: #f1f1f1;
+  --color-white-2: #fafafa;
+  --color-white: #ffffff;
+
+  --color-red-color: #cd2c2c;
+}
+
+@layer base {
+  h1 {
+    @apply text-[56px] leading-[58px] font-bold tracking-[2px];
+  }
+  h2 {
+    @apply text-[40px] leading-[44px] font-bold tracking-[1.5px];
+  }
+  h3 {
+    @apply text-[32px] leading-[36px] font-bold tracking-[1.15px];
+  }
+
+  h4 {
+    @apply text-[28px] leading-[38px] font-bold tracking-[2px];
+  }
+
+  h5 {
+    @apply text-[24px] leading-[33px] font-bold tracking-[1.7px];
+  }
+
+  h6 {
+    @apply text-[18px] leading-[14px] font-bold tracking-[1.3px];
+  }
+
+  p {
+    @apply text-[15px] leading-[25px];
+  }
+}
+
+@layer components {
+  /* texts */
+  .overline {
+    @apply text-[14px] leading-[19px] font-normal tracking-[10px];
+  }
+
+  .subtitle {
+    @apply text-[13px] leading-[25px] font-bold tracking-[1px];
+  }
+
+  /* buttons */
+  button {
+    @apply cursor-pointer transition-colors;
+  }
+
+  .btn {
+    @apply h-[48px] w-[160px] text-[13px] font-bold tracking-[1px] transition-colors;
+  }
+
+  .btn-default {
+    @apply bg-brown-dark hover:bg-brown-light text-white;
+  }
+
+  .btn-default-2 {
+    @apply bg-white text-black hover:bg-black hover:text-white;
+  }
+
+  .btn-default-3 {
+    @apply hover:text-brown-dark flex items-center gap-[13px] text-black transition-colors;
+  }
+
+  /* forms */
+
+  .field-container {
+    @apply flex flex-col gap-2;
+  }
+
+  .field-container label {
+    @apply text-xs font-bold tracking-[-0.21px] text-black;
+  }
+
+  .field-container .input-container {
+    @apply flex h-[48px] items-center gap-5 rounded-lg border border-[#cfcfcf] px-5;
+  }
+
+  .field-container input {
+    @apply w-full text-sm font-bold tracking-[-0.21px] text-black placeholder:text-black/40 focus:outline-none;
+  }
+
+  .field-container .error-msg {
+    @apply text-red-color text-right text-xs font-bold;
+  }
+
+  /* number */
+  .number-container {
+    @apply h-[48px] w-[120px];
+  }
+
+  .number-container span {
+    @apply text-[13px] font-bold tracking-[1px];
+  }
+}
