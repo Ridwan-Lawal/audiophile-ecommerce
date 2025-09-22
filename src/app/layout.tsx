@@ -17,7 +17,11 @@ export default function RootLayout({ children }: PropsWithChildren) {
     <html lang="en">
       <body className={`${manrope.className} antialiased`}>
         {children}
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            duration: 8000,
+          }}
+        />
       </body>
     </html>
   );

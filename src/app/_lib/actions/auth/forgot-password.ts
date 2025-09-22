@@ -57,6 +57,7 @@ export async function resetPasswordAction(
     new Date(existingToken?.expires_at).getTime() < new Date().getTime();
 
   if (!hasExpired) {
+    console.log("Ridwan");
     return {
       error: errMessage,
     };

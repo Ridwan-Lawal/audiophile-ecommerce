@@ -9,6 +9,7 @@ import { LoginSchema } from "@/src/app/_lib/schema/login";
 import { LoginSchemaType } from "@/src/app/_types/auth/auth";
 import { DEFAULT_LOGIN_REDIRECT } from "@/src/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useTransition } from "react";
@@ -21,6 +22,11 @@ export default function Login() {
   const { showPassword, handleShowPassword } = useShowPassword();
   const [isLoggingIn, startTransition] = useTransition();
   const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email already in use with a different provider"
+      : "";
   const router = useRouter();
 
   const { handleSubmit, reset, formState, register, watch, setValue } =
@@ -35,6 +41,12 @@ export default function Login() {
   const { email, password } = watch();
   const areAllInputEntered = email && password;
   const formErrors = formState?.errors;
+
+  useEffect(() => {
+    if (urlError) {
+      toast.error(urlError);
+    }
+  }, [urlError]);
 
   useEffect(() => {
     const loginDataFromStorage = localStorage.getItem("loginData");
@@ -67,7 +79,6 @@ export default function Login() {
       if (res.success) {
         reset();
 
-        const callbackUrl = searchParams.get("callbackUrl");
         console.log(DEFAULT_LOGIN_REDIRECT, "redirec");
         router.push(callbackUrl || DEFAULT_LOGIN_REDIRECT);
       }
@@ -149,7 +160,10 @@ export default function Login() {
         <p>Or log in with:</p>
         {/* google button */}
 
-        <button className="btn btn-default-2 group flex w-full items-center justify-center gap-2.5 text-sm font-bold">
+        <button
+          className="btn btn-default-2 group flex w-full items-center justify-center gap-2.5 text-sm font-bold"
+          onClick={() => signIn("google", { redirectTo: "/" })}
+        >
           <GoogleIcon hoverStyle="group-hover:fill-white" />
           <span>Google</span>
         </button>

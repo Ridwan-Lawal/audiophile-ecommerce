@@ -8,6 +8,7 @@ import { signupAction } from "@/src/app/_lib/actions/auth/signup";
 import { SignupSchema } from "@/src/app/_lib/schema/signup";
 import { SignupSchemaType } from "@/src/app/_types/auth/auth";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -188,6 +189,7 @@ export default function Signup() {
           className="btn btn-default-2 group flex w-full items-center justify-center gap-2.5 text-sm font-bold"
           disabled={isSubmittingForm}
           aria-disabled={isSubmittingForm}
+          onClick={() => signIn("google", { redirectTo: "/" })}
         >
           <GoogleIcon hoverStyle="group-hover:fill-white" />
           <span>Google</span>

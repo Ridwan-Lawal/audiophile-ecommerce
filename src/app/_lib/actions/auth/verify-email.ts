@@ -1,14 +1,14 @@
 "use server";
 
 import {
+  getUserErrorMesageForGet,
+  logSupabaseErrorInDevMode,
+} from "@/src/app/_lib/error-handling";
+import {
   getEmailTokenByToken,
   getUserByEmail,
 } from "@/src/app/_lib/services/auth/auth-service";
 import { createClient } from "@/src/app/_lib/supabase/server";
-import {
-  getUserErrorMesageForGet,
-  logSupabaseErrorInDevMode,
-} from "@/src/app/_lib/utils";
 import { PostgrestError } from "@supabase/supabase-js";
 
 export async function verifyEmailAction(tokenFromUrl: string) {

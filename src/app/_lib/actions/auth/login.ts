@@ -1,10 +1,10 @@
 "use server";
 
+import { logFullErrorInDevMode } from "@/src/app/_lib/error-handling";
 import { LoginSchema } from "@/src/app/_lib/schema/login";
 import { getUserByEmail } from "@/src/app/_lib/services/auth/auth-service";
 import { sendEmailVerificationMail } from "@/src/app/_lib/services/auth/mail-service";
 import { generateEmailVerificationToken } from "@/src/app/_lib/services/auth/token-service";
-import { logFullErrorInDevMode } from "@/src/app/_lib/utils";
 import { LoginSchemaType } from "@/src/app/_types/auth/auth";
 import { signIn } from "@/src/auth";
 import bcrypt from "bcryptjs";
