@@ -15,8 +15,16 @@ export default function InputFieldContainer({
   return (
     <div className="field-container">
       <label htmlFor={htmlFor}>{label}</label>
-      <div className="input-container">{children}</div>
-      {error && <div className="error-msg">{error}</div>}
+      <div
+        className={`input-container focus-within:border-brown-dark focus-within:border`}
+      >
+        {children}
+      </div>
+      {error && (
+        <div className="error-msg" role="alert">
+          {error as unknown as string}
+        </div>
+      )}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { PropsWithChildren } from "react";
 import { manrope } from "@/src/app/_styles/font";
 import "@styles/globals.css";
 import { Metadata } from "next";
+import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
   title: {
@@ -14,7 +15,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body className={`${manrope.className} antialiased`}>{children}</body>
+      <body className={`${manrope.className} antialiased`}>
+        {children}
+        <Toaster
+          toastOptions={{
+            duration: 8000,
+          }}
+        />
+      </body>
     </html>
   );
 }
