@@ -8,13 +8,14 @@
   --color-white-3: #f1f1f1;
   --color-white-2: #fafafa;
   --color-white: #ffffff;
+  --color-stroke: #979797;
 
   --color-red-color: #cd2c2c;
 }
 
 @layer base {
   h1 {
-    @apply text-[56px] leading-[58px] font-bold tracking-[2px];
+    @apply text-[36px] leading-[40px] font-bold tracking-[1.29px] uppercase sm:text-[56px] sm:leading-[58px] sm:tracking-[2px];
   }
   h2 {
     @apply text-[40px] leading-[44px] font-bold tracking-[1.5px];

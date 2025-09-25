@@ -1,11 +1,13 @@
+import Footer from "@/src/app/_components/ui/Footer";
+import Navbar from "@/src/app/_components/ui/Navbar";
 import { PropsWithChildren } from "react";
 
 export default function Layout({ children }: PropsWithChildren) {
   return (
     <div>
-      <nav className="border">This is the nav bar</nav>
+      <Navbar />
       <main>{children}</main>
-      <footer className="footer">This is the footer</footer>
+      <Footer />
     </div>
   );
 }
