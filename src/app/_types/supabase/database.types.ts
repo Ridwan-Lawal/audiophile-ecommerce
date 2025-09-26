@@ -115,6 +115,57 @@ export type Database = {
         }
         Relationships: []
       }
+      products: {
+        Row: {
+          category: string | null
+          categoryimage: Json | null
+          created_at: string | null
+          description: string | null
+          features: string | null
+          gallery: Json | null
+          id: string
+          image: Json | null
+          includes: Json | null
+          name: string | null
+          new: boolean | null
+          others: Json | null
+          price: number | null
+          slug: string | null
+        }
+        Insert: {
+          category?: string | null
+          categoryimage?: Json | null
+          created_at?: string | null
+          description?: string | null
+          features?: string | null
+          gallery?: Json | null
+          id?: string
+          image?: Json | null
+          includes?: Json | null
+          name?: string | null
+          new?: boolean | null
+          others?: Json | null
+          price?: number | null
+          slug?: string | null
+        }
+        Update: {
+          category?: string | null
+          categoryimage?: Json | null
+          created_at?: string | null
+          description?: string | null
+          features?: string | null
+          gallery?: Json | null
+          id?: string
+          image?: Json | null
+          includes?: Json | null
+          name?: string | null
+          new?: boolean | null
+          others?: Json | null
+          price?: number | null
+          slug?: string | null
+        }
+        Relationships: []
+      }
       users: {
         Row: {
           email: string | null

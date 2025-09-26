@@ -4,6 +4,7 @@ import cart from "@/public/shared/desktop/icon-cart.svg";
 import logo from "@/public/shared/desktop/logo.svg";
 import menu from "@/public/shared/tablet/icon-hamburger.svg";
 import { DESKTOP_MENU_LINKS, MENU_LINKS } from "@/src/app/_lib/constants";
+import { AnimatePresence, motion } from "motion/react";
 
 import { ChevronRight, X } from "lucide-react";
 import Image from "next/image";
@@ -101,36 +102,47 @@ export default function Navbar() {
       </div>
 
       {/* menu */}
-      <aside
-        className={`fixed flex w-full flex-col items-center justify-center gap-20 rounded-b-lg border-2 border-yellow-500 bg-white px-6 pt-20 pb-10 sm:flex-row sm:gap-4 ${isNavOpen ? "translate-x-0" : "-translate-x-full"} transition-all duration-300`}
-      >
-        {MENU_LINKS?.map((menulink, idx) => (
-          <div
-            key={idx}
-            className="bg-white-3 relative flex w-full flex-col items-center rounded-lg"
+      <AnimatePresence>
+        {isNavOpen && (
+          <motion.div
+            initial={{ opacity: 0, translateX: -300 }}
+            animate={{ opacity: 1, width: "100%", translateX: 0 }}
+            exit={{ opacity: 0, translateX: -300 }}
+            className={`fixed h-screen bg-black/50 ${isNavOpen ? "w-full" : "w-0"}`}
           >
-            <Image
-              src={menulink.src}
-              alt={menulink.alt}
-              quality={100}
-              priority={true}
-              className="absolute -top-12"
-            />
+            <aside
+              className={`flex w-full flex-col items-center justify-center gap-20 rounded-b-lg border-2 border-yellow-500 bg-white px-6 pt-20 pb-10 sm:flex-row sm:gap-4 ${isNavOpen ? "translate-x-0" : "-translate-x-full"} transition-all duration-1000`}
+            >
+              {MENU_LINKS?.map((menulink, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white-3 relative flex w-full flex-col items-center rounded-lg"
+                >
+                  <Image
+                    src={menulink.src}
+                    alt={menulink.alt}
+                    quality={100}
+                    priority={true}
+                    className="absolute -top-12"
+                  />
 
-            <div className="flex flex-col items-center justify-center gap-3 pt-20 pb-4">
-              <p className="font-bold tracking-[1.07px] uppercase">
-                {menulink.name}{" "}
-              </p>
-              <button className="flex items-center gap-1 text-[13px] font-bold tracking-[1px] text-black/50 uppercase">
-                shop{" "}
-                <span>
-                  <ChevronRight className="text-brown-dark size-4" />
-                </span>
-              </button>
-            </div>
-          </div>
-        ))}
-      </aside>
+                  <div className="flex flex-col items-center justify-center gap-3 pt-20 pb-4">
+                    <p className="font-bold tracking-[1.07px] uppercase">
+                      {menulink.name}{" "}
+                    </p>
+                    <button className="flex items-center gap-1 text-[13px] font-bold tracking-[1px] text-black/50 uppercase">
+                      shop{" "}
+                      <span>
+                        <ChevronRight className="text-brown-dark size-4" />
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </aside>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

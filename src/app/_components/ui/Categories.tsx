@@ -1,3 +1,6 @@
+import shadowImage from "@/public/assets/menu/Oval Copy 3.png";
+import shadowImageMobile from "@/public/assets/menu/Oval Copy 4.png";
+
 import { MENU_LINKS } from "@/src/app/_lib/constants";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
@@ -19,8 +22,20 @@ export default function Categories() {
             priority={true}
             className="absolute -top-12 lg:-top-20 lg:h-[160px] lg:w-[123px]"
           />
+          <Image
+            src={shadowImage}
+            alt="shadow"
+            quality={100}
+            className="mt-2 hidden sm:block"
+          />
+          <Image
+            src={shadowImageMobile}
+            alt="shadow"
+            quality={100}
+            className="mt-2 sm:hidden"
+          />
 
-          <div className="flex h-full flex-col items-center justify-center gap-3 pt-20 pb-4 lg:justify-end lg:pb-8">
+          <div className="flex h-full flex-col items-center justify-center gap-3 pt-0 pb-4 lg:justify-end lg:pb-8">
             <p className="font-bold tracking-[1.07px] uppercase">
               {menulink.name}{" "}
             </p>
