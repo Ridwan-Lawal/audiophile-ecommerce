@@ -4,6 +4,7 @@ import shadowImageMobile from "@/public/assets/menu/Oval Copy 4.png";
 import { MENU_LINKS } from "@/src/app/_lib/constants";
 import { ChevronRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Categories() {
   return (
@@ -39,12 +40,14 @@ export default function Categories() {
             <p className="font-bold tracking-[1.07px] uppercase">
               {menulink.name}{" "}
             </p>
-            <button className="flex items-center gap-1 text-[13px] font-bold tracking-[1px] text-black/50 uppercase">
-              shop{" "}
-              <span>
-                <ChevronRight className="text-brown-dark size-4" />
-              </span>
-            </button>
+            <Link href={menulink.link}>
+              <button className="flex items-center gap-1 text-[13px] font-bold tracking-[1px] text-black/50 uppercase">
+                shop{" "}
+                <span>
+                  <ChevronRight className="text-brown-dark size-4" />
+                </span>
+              </button>
+            </Link>
           </div>
         </div>
       ))}

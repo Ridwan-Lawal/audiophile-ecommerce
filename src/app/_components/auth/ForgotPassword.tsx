@@ -64,7 +64,7 @@ export default function ForgotPassword() {
   }
 
   return (
-    <div className="mt-14 w-full">
+    <div className="mt-8 w-full">
       <form
         action=""
         autoComplete="on"

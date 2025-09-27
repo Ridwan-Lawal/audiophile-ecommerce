@@ -130,12 +130,14 @@ export default function Navbar() {
                     <p className="font-bold tracking-[1.07px] uppercase">
                       {menulink.name}{" "}
                     </p>
-                    <button className="flex items-center gap-1 text-[13px] font-bold tracking-[1px] text-black/50 uppercase">
-                      shop{" "}
-                      <span>
-                        <ChevronRight className="text-brown-dark size-4" />
-                      </span>
-                    </button>
+                    <Link href={menulink.link}>
+                      <button className="flex items-center gap-1 text-[13px] font-bold tracking-[1px] text-black/50 uppercase">
+                        shop{" "}
+                        <span>
+                          <ChevronRight className="text-brown-dark size-4" />
+                        </span>
+                      </button>
+                    </Link>
                   </div>
                 </div>
               ))}

@@ -3,23 +3,23 @@ import {
   logAxiosErrorInDevMode,
 } from "@/src/app/_lib/error-handling";
 import {
-  HeadphonesDataSchema,
-  headphonesDataType,
-} from "@/src/app/_lib/schema/headphones-data";
+  AllCategoryProductsDataType,
+  AllCategoryProductsSchema,
+} from "@/src/app/_lib/schema/categories-schema";
 import axios, { AxiosError } from "axios";
 import { unstable_cache } from "next/cache";
 import z from "zod";
 
-export const getHeadphones = unstable_cache(
-  async function (): Promise<headphonesDataType> {
-    const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/headphones`;
+export const getCategoryProducts = unstable_cache(
+  async function (category: string): Promise<AllCategoryProductsDataType> {
+    const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/categories/${category}`;
 
     try {
-      const res = await axios.get<headphonesDataType>(url);
+      const res = await axios.get<AllCategoryProductsDataType>(url);
 
-      const validatingData = HeadphonesDataSchema.safeParse(res.data);
+      const validatingData = AllCategoryProductsSchema.safeParse(res.data);
 
-      console.log("reading data");
+      console.log("res", res.data);
 
       if (!validatingData?.success) {
         if (process.env.NODE_ENV === "development") {
@@ -45,9 +45,9 @@ export const getHeadphones = unstable_cache(
       throw new Error("Something went wrong");
     }
   },
-  ["headphones-data"],
+  ["categories-products"],
   {
     revalidate: 3600,
-    tags: ["headphones"],
+    tags: ["categories-products"],
   },
 );

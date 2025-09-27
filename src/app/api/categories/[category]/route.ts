@@ -5,25 +5,25 @@ import {
 import { createClient } from "@/src/app/_lib/supabase/server";
 import { PostgrestError } from "@supabase/supabase-js";
 
-export async function GET() {
+export async function GET(
+  request: Request,
+  {
+    params,
+  }: {
+    params: Promise<{ category: string }>;
+  },
+) {
+  const { category } = await params;
+  console.log(category, "category");
   try {
     const supabase = await createClient();
     const { data, error } = await supabase
       .from("products")
-      .select("id, slug, name, category, categoryimage")
-      .eq("category", "headphones");
+      .select("id, slug, name, category, categoryimage, description")
+      .eq("category", category);
 
     if (error) {
       throw error;
-    }
-
-    if (!data.length) {
-      return Response.json(
-        {
-          message: "Products with this category could not be found",
-        },
-        { status: 404 },
-      );
     }
 
     return Response.json(data, { status: 200 });
@@ -36,7 +36,7 @@ export async function GET() {
 
     return Response.json(
       { message: getUserErrorMesageForGet(supabaseError) },
-      { status: 404 },
+      { status: 500 },
     );
   }
 }
