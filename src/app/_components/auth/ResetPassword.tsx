@@ -59,7 +59,7 @@ export default function ResetPassword() {
   }
 
   return (
-    <div className="w-full">
+    <div className="mt-8 w-full">
       <form
         action=""
         autoComplete="on"

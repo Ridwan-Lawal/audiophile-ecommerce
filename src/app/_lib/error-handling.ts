@@ -1,5 +1,17 @@
 import { PostgrestError } from "@supabase/supabase-js";
+import { AxiosError } from "axios";
 import { AuthError } from "next-auth";
+
+export function logAxiosErrorInDevMode(error: AxiosError) {
+  console.log({
+    name: error.name,
+    cause: error.cause,
+    stack: error.stack,
+    code: error.code,
+    status: error.status,
+    message: error.message,
+  });
+}
 
 export function logFullErrorInDevMode(error: AuthError) {
   console.log({
@@ -18,6 +30,98 @@ export function logSupabaseErrorInDevMode(error: PostgrestError) {
     stack: error.stack,
     message: error.message,
   });
+}
+
+export function getAxiosErrorMessage(status?: number, code?: string): string {
+  // Handle specific error codes first
+  if (code) {
+    switch (code) {
+      // Network errors
+      case "ERR_NETWORK":
+        return "Unable to connect to the server. Please check your internet connection and try again.";
+      case "ECONNREFUSED":
+        return "Connection refused. The server may be temporarily unavailable.";
+      case "ECONNABORTED":
+        return "Request timeout. Please try again.";
+      case "ENOTFOUND":
+        return "Server not found. Please check your connection and try again.";
+      case "ETIMEDOUT":
+        return "Connection timed out. Please try again.";
+      case "ERR_CANCELED":
+        return "Request was cancelled. Please try again.";
+      case "ERR_BAD_REQUEST":
+        return "Invalid request. Please check your input and try again.";
+      case "ERR_BAD_RESPONSE":
+        return "Received invalid response from server. Please try again.";
+
+      // Authentication/Authorization codes
+      case "INVALID_CREDENTIALS":
+        return "Invalid email or password. Please check your credentials and try again.";
+      case "ACCOUNT_LOCKED":
+        return "Your account has been locked. Please contact support for assistance.";
+      case "TOKEN_EXPIRED":
+        return "Your session has expired. Please sign in again.";
+      case "INSUFFICIENT_PERMISSIONS":
+        return "You do not have permission to perform this action.";
+
+      // Validation codes
+      case "VALIDATION_ERROR":
+        return "Please check your input and correct any errors.";
+      case "MISSING_REQUIRED_FIELD":
+        return "Please fill in all required fields.";
+      case "DUPLICATE_ENTRY":
+        return "This information already exists. Please try with different details.";
+
+      // Business logic codes
+      case "INSUFFICIENT_STOCK":
+        return "This item is currently out of stock.";
+      case "PAYMENT_FAILED":
+        return "Payment could not be processed. Please try again or use a different payment method.";
+      case "ORDER_NOT_FOUND":
+        return "Order not found. Please check your order number and try again.";
+    }
+  }
+
+  // Handle HTTP status codes
+  if (status) {
+    switch (status) {
+      case 400:
+        return "Invalid request. Please check your input and try again.";
+      case 401:
+        return "Please sign in to access this feature.";
+      case 403:
+        return "You do not have permission to perform this action.";
+      case 404:
+        return "The requested item could not be found.";
+      case 408:
+        return "Request timeout. Please try again.";
+      case 409:
+        return "This action conflicts with existing data. Please refresh and try again.";
+      case 410:
+        return "This resource is no longer available.";
+      case 422:
+        return "Please check your input and correct any validation errors.";
+      case 429:
+        return "Too many requests. Please wait a moment before trying again.";
+      case 500:
+        return "A server error occurred. Please try again later.";
+      case 502:
+        return "Service temporarily unavailable. Please try again later.";
+      case 503:
+        return "Service is temporarily under maintenance. Please try again later.";
+      case 504:
+        return "Request timeout. Please try again later.";
+      default:
+        if (status >= 400 && status < 500) {
+          return "There was a problem with your request. Please check your input and try again.";
+        } else if (status >= 500) {
+          return "A server error occurred. Please try again later.";
+        }
+    }
+  }
+
+  // Default fallback message
+  return "Something went wrong. Please try again later.";
 }
 
 export function getUserErrorMesageForGet(error: PostgrestError | Error) {

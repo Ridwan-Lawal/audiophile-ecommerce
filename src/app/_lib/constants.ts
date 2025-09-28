@@ -10,12 +10,27 @@ export const ICONS = [facebook, twitter, linkedin];
 
 export const DESKTOP_MENU_LINKS = [
   { name: "home", link: "/" },
-  { name: "headphones", link: "/headphones" },
-  { name: "speakers", link: "/speakers" },
-  { name: "earphones", link: "/earphones" },
+  { name: "headphones", link: "/categories/headphones" },
+  { name: "speakers", link: "/categories/speakers" },
+  { name: "earphones", link: "/categories/earphones" },
 ];
 export const MENU_LINKS = [
-  { src: headphoneImage, alt: "headphones", name: "headphones" },
-  { src: speakerImage, alt: "speakers", name: "speakers" },
-  { src: earphoneImage, alt: "earphones", name: "earphones" },
+  {
+    src: headphoneImage,
+    alt: "headphones",
+    name: "headphones",
+    link: "/categories/headphones",
+  },
+  {
+    src: speakerImage,
+    alt: "speakers",
+    name: "speakers",
+    link: "/categories/speakers",
+  },
+  {
+    src: earphoneImage,
+    alt: "earphones",
+    name: "earphones",
+    link: "/categories/speakers",
+  },
 ];
