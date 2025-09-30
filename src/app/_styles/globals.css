@@ -99,7 +99,7 @@
 
   /* number */
   .number-container {
-    @apply h-[48px] w-[120px];
+    @apply bg-white-3 flex h-[48px] w-[120px] items-center;
   }
 
   .number-container span {

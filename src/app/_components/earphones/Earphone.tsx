@@ -1,5 +1,4 @@
 import { CategoryProductDataType } from "@/src/app/_lib/schema/categories-schema";
-import { getBlurDataUrl } from "@/src/app/_lib/services/products/images";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -8,15 +7,6 @@ export default async function Earphone({
 }: {
   earphone: CategoryProductDataType;
 }) {
-  const images = Object.values(earphone.categoryimage);
-
-  const [mobileBlurDataUrl, tabletBlurDataUrl, desktopBlurDataUrl] =
-    await Promise.all(
-      images.map(async (image) => await getBlurDataUrl(image.slice(1))),
-    );
-
-  console.log(earphone?.categoryimage?.desktop.slice(1));
-
   return (
     <div
       key={earphone?.id}

@@ -2,9 +2,9 @@ import earphoneImage from "@/public/assets/menu/earphone.svg";
 import headphoneImage from "@/public/assets/menu/headphone.svg";
 import speakerImage from "@/public/assets/menu/speaker.svg";
 
-import facebook from "@/public/shared/desktop/icon-facebook.svg";
-import linkedin from "@/public/shared/desktop/icon-instagram.svg";
-import twitter from "@/public/shared/desktop/icon-twitter.svg";
+import facebook from "@/public/assets/shared/desktop/icon-facebook.svg";
+import linkedin from "@/public/assets/shared/desktop/icon-instagram.svg";
+import twitter from "@/public/assets/shared/desktop/icon-twitter.svg";
 
 export const ICONS = [facebook, twitter, linkedin];
 

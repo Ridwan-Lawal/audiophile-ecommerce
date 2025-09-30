@@ -1,8 +1,8 @@
 "use client";
 
-import cart from "@/public/shared/desktop/icon-cart.svg";
-import logo from "@/public/shared/desktop/logo.svg";
-import menu from "@/public/shared/tablet/icon-hamburger.svg";
+import cart from "@/public/assets/shared/desktop/icon-cart.svg";
+import logo from "@/public/assets/shared/desktop/logo.svg";
+import menu from "@/public/assets/shared/tablet/icon-hamburger.svg";
 import { DESKTOP_MENU_LINKS, MENU_LINKS } from "@/src/app/_lib/constants";
 import { AnimatePresence, motion } from "motion/react";
 
