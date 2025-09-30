@@ -1,6 +1,6 @@
-import BestAudioGearDesktopImage from "@/public/shared/desktop/image-best-gear.jpg";
-import BestAudioGearImage from "@/public/shared/mobile/image-best-gear.jpg";
-import BestAudioGearTabletImage from "@/public/shared/tablet/image-best-gear.jpg";
+import BestAudioGearDesktopImage from "@/public/assets/shared/desktop/image-best-gear.jpg";
+import BestAudioGearImage from "@/public/assets/shared/mobile/image-best-gear.jpg";
+import BestAudioGearTabletImage from "@/public/assets/shared/tablet/image-best-gear.jpg";
 
 import Image from "next/image";
 

@@ -1,4 +1,4 @@
-import logo from "@/public/shared/desktop/logo.svg";
+import logo from "@/public/assets/shared/desktop/logo.svg";
 import { DESKTOP_MENU_LINKS, ICONS } from "@/src/app/_lib/constants";
 import Image from "next/image";
 import Link from "next/link";

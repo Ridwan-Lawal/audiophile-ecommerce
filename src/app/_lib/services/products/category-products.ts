@@ -37,7 +37,10 @@ export const getCategoryProducts = unstable_cache(
           logAxiosErrorInDevMode(error);
         }
 
-        const errorMessage = getAxiosErrorMessage(error?.status, error?.code);
+        const errorMessage = getAxiosErrorMessage(
+          error?.response?.status,
+          error?.code,
+        );
 
         throw new Error(errorMessage);
       }
