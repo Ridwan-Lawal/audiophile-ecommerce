@@ -138,7 +138,7 @@ export default function Login() {
         <div className="space-y-4">
           <div className="mt-1 text-right">
             <Link
-              href=""
+              href="/forgotpassword"
               className="text-almost-black tex-center text-xs underline"
             >
               Forgot your password?

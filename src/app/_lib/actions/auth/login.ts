@@ -32,7 +32,7 @@ export async function loginAction(data: LoginSchemaType) {
     console.log("email ver 1");
     const doesPasswordMatch = await bcrypt.compare(
       password,
-      existingUser.password,
+      existingUser.password!,
     );
 
     if (doesPasswordMatch && !existingUser?.emailVerified) {

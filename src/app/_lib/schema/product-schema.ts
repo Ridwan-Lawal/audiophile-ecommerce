@@ -49,7 +49,6 @@ export const ProductSchema = z
         }),
       }),
     ),
-    created_at: z.string(),
   })
   .strict();
 

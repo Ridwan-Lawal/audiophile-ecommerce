@@ -19,6 +19,8 @@ export async function GET(
       .select("*")
       .eq("slug", slug);
 
+    console.log(data, error, "yess");
+
     if (error) {
       throw error;
     }

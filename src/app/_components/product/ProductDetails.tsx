@@ -5,7 +5,9 @@ import SimilarProducts from "@/src/app/_components/product/SimilarProducts";
 import BestGear from "@/src/app/_components/ui/BestGear";
 import Categories from "@/src/app/_components/ui/Categories";
 import { blurDataUrl } from "@/src/app/_lib/blurdataurl";
+import { getCartProducts } from "@/src/app/_lib/services/checkout/cart";
 import { getProduct } from "@/src/app/_lib/services/products/product";
+import { getUser } from "@/src/app/_lib/utils";
 import Image from "next/image";
 
 interface ProductDetailsType {
@@ -13,7 +15,13 @@ interface ProductDetailsType {
 }
 
 export default async function ProductDetails({ slug }: ProductDetailsType) {
-  const product = await getProduct(slug);
+  const [product, user, cart] = await Promise.all([
+    getProduct(slug),
+    getUser(),
+    getCartProducts(),
+  ]);
+
+  console.log(product, "product-2");
 
   return (
     <div className="sm mx-auto max-w-[500px] border px-4 sm:max-w-[700px] md:px-6 lg:max-w-[1110px]">
@@ -63,7 +71,7 @@ export default async function ProductDetails({ slug }: ProductDetailsType) {
           )}
         </div>
 
-        <div className="border text-left sm:w-[50%] lg:w-[446px]">
+        <div className="relative border text-left sm:w-[50%] lg:w-[446px]">
           {product?.new && (
             <p className="text-sm tracking-[10px] text-[#d87d4a] uppercase">
               new product
@@ -82,7 +90,7 @@ export default async function ProductDetails({ slug }: ProductDetailsType) {
             ${product?.price.toLocaleString()}
           </p>
 
-          <ProductButtons />
+          <ProductButtons product={product} userId={user?.id} />
         </div>
       </div>
 

@@ -73,24 +73,75 @@ export type Database = {
           },
         ]
       }
+      cart: {
+        Row: {
+          created_at: string | null
+          id: string
+          image: string
+          name: string
+          price: number
+          product_id: string
+          quantity: number
+          slug: string
+          userid: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          image: string
+          name: string
+          price: number
+          product_id: string
+          quantity: number
+          slug: string
+          userid?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          image?: string
+          name?: string
+          price?: number
+          product_id?: string
+          quantity?: number
+          slug?: string
+          userid?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cart_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cart_userid_fkey"
+            columns: ["userid"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       email_verification_token: {
         Row: {
           email: string
           expires_at: string
           id: string
-          token: string
+          token: string | null
         }
         Insert: {
           email: string
           expires_at: string
           id?: string
-          token: string
+          token?: string | null
         }
         Update: {
           email?: string
           expires_at?: string
           id?: string
-          token?: string
+          token?: string | null
         }
         Relationships: []
       }
@@ -99,19 +150,19 @@ export type Database = {
           email: string
           expires_at: string
           id: string
-          token: string
+          token: string | null
         }
         Insert: {
           email: string
           expires_at: string
           id?: string
-          token: string
+          token?: string | null
         }
         Update: {
           email?: string
           expires_at?: string
           id?: string
-          token?: string
+          token?: string | null
         }
         Relationships: []
       }
@@ -119,7 +170,6 @@ export type Database = {
         Row: {
           category: string | null
           categoryimage: Json | null
-          created_at: string | null
           description: string | null
           features: string | null
           gallery: Json | null
@@ -135,7 +185,6 @@ export type Database = {
         Insert: {
           category?: string | null
           categoryimage?: Json | null
-          created_at?: string | null
           description?: string | null
           features?: string | null
           gallery?: Json | null
@@ -151,7 +200,6 @@ export type Database = {
         Update: {
           category?: string | null
           categoryimage?: Json | null
-          created_at?: string | null
           description?: string | null
           features?: string | null
           gallery?: Json | null
@@ -173,7 +221,7 @@ export type Database = {
           id: string
           image: string | null
           name: string | null
-          password: string
+          password: string | null
         }
         Insert: {
           email?: string | null
@@ -181,7 +229,7 @@ export type Database = {
           id?: string
           image?: string | null
           name?: string | null
-          password: string
+          password?: string | null
         }
         Update: {
           email?: string | null
@@ -189,7 +237,7 @@ export type Database = {
           id?: string
           image?: string | null
           name?: string | null
-          password?: string
+          password?: string | null
         }
         Relationships: []
       }

@@ -1,19 +1,36 @@
 "use client";
 
 import cart from "@/public/assets/shared/desktop/icon-cart.svg";
+
 import logo from "@/public/assets/shared/desktop/logo.svg";
 import menu from "@/public/assets/shared/tablet/icon-hamburger.svg";
 import { DESKTOP_MENU_LINKS, MENU_LINKS } from "@/src/app/_lib/constants";
 import { AnimatePresence, motion } from "motion/react";
 
+import { getCart, onToggleCart } from "@/src/app/_lib/redux/cartSlice";
 import { ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-export default function Navbar() {
+export default function Navbar({ isSignedIn }: { isSignedIn: boolean }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isNavFixed, setIsNavFixed] = useState(false);
+  const dispatch = useDispatch();
+  const { cart: offlineCart, cartFromDb } = useSelector(getCart);
+
+  const offlineCartLength = offlineCart?.reduce(
+    (acc, cur) => acc + cur.quantity,
+    0,
+  );
+
+  const cartFromDbLength = cartFromDb?.reduce(
+    (acc, curCartProduct) => acc + curCartProduct?.quantity,
+    0,
+  );
+
+  const cartLength = isSignedIn ? cartFromDbLength : offlineCartLength;
 
   const handleNavToggling = () => setIsNavOpen((cur) => !cur);
 
@@ -96,9 +113,25 @@ export default function Navbar() {
           priority={true}
           className="sm:hidden"
         />
-        <button aria-label="cart-button">
-          <Image src={cart} alt="cart-button" quality={100} priority={true} />
-        </button>
+
+        <div className="relative">
+          <button
+            aria-label="cart-button"
+            onClick={() => dispatch(onToggleCart())}
+            className="cart-button"
+          >
+            <Image
+              src={cart}
+              alt="cart-button"
+              quality={100}
+              priority={true}
+              className="z-20"
+            />
+          </button>
+          <p className="absolute -top-2 -right-2 z-30 flex size-4 items-center justify-center rounded-full bg-red-600 py-[8.5px] text-[12px] font-bold text-white">
+            {cartLength}
+          </p>
+        </div>
       </div>
 
       {/* menu */}
@@ -108,7 +141,7 @@ export default function Navbar() {
             initial={{ opacity: 0, translateX: -300 }}
             animate={{ opacity: 1, width: "100%", translateX: 0 }}
             exit={{ opacity: 0, translateX: -300 }}
-            className={`fixed h-screen bg-black/50 ${isNavOpen ? "w-full" : "w-0"}`}
+            className={`fixed h-screen bg-black/50 ${isNavOpen ? "w-full" : "w-0"} z-50`}
           >
             <aside
               className={`flex w-full flex-col items-center justify-center gap-20 rounded-b-lg border-2 border-yellow-500 bg-white px-6 pt-20 pb-10 sm:flex-row sm:gap-4 ${isNavOpen ? "translate-x-0" : "-translate-x-full"} transition-all duration-1000`}
