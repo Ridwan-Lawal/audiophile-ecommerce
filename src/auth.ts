@@ -49,5 +49,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     secret: process.env.SUPABASE_SERVICE_ROLE_KEY!,
   }),
   session: { strategy: "jwt" },
+  trustHost: true,
   ...authConfig,
 });

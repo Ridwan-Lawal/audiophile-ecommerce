@@ -20,10 +20,12 @@ export default auth((req) => {
   }
 
   if (isLoggedIn && isAuthRoute) {
+    console.log("yes");
     return Response.redirect(new URL("/", req.nextUrl));
   }
 
   if (!isLoggedIn && isPrivateRoute) {
+    console.log("okay");
     let callbackUrl = currentPath;
 
     if (req.nextUrl.search) {

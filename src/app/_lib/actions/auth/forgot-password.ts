@@ -56,7 +56,7 @@ export async function resetPasswordAction(
   const hasExpired =
     new Date(existingToken?.expires_at).getTime() < new Date().getTime();
 
-  if (!hasExpired) {
+  if (hasExpired) {
     console.log("Ridwan");
     return {
       error: errMessage,
@@ -67,6 +67,7 @@ export async function resetPasswordAction(
   const existingUserForToken = await getUserByEmail(existingToken?.email);
 
   if (!existingUserForToken) {
+    console.log("yes");
     return {
       error: errMessage,
     };

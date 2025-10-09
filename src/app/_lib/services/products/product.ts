@@ -24,12 +24,17 @@ export const getProduct = cache(async function (
       if (process.env.NODE_ENV === "development") {
         console.log(
           "Invalid data structure:",
-          z.treeifyError(validatingResponse.error)?.errors?.at(0),
+          z.treeifyError(validatingResponse.error)?.properties,
         );
       }
     }
 
-    return validatingResponse.data;
+    console.log(
+      validatingResponse.data,
+      "llllllllllllllllllllllllllllllllllllllllllllllllll",
+    );
+
+    return res?.data;
   } catch (error) {
     if (error instanceof AxiosError) {
       if (process.env.NODE_ENV === "development") {

@@ -1,4 +1,4 @@
-import logo from "@/public/shared/desktop/logo-dark.svg";
+import logo from "@/public/assets/shared/desktop/logo-dark.svg";
 import Image from "next/image";
 import { PropsWithChildren } from "react";
 

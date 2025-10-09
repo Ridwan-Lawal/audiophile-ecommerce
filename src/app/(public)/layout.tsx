@@ -1,17 +1,21 @@
 import Cart from "@/src/app/_components/layout/cart/Cart";
 import Footer from "@/src/app/_components/ui/Footer";
 import Navbar from "@/src/app/_components/ui/Navbar";
-import { PropsWithChildren } from "react";
+import { getUser } from "@/src/app/_lib/utils";
+import { PropsWithChildren, Suspense } from "react";
 
-export default function Layout({ children }: PropsWithChildren) {
+export default async function Layout({ children }: PropsWithChildren) {
+  const user = await getUser();
+
   return (
     <div>
-      <Navbar />
-      <main className="relative">
-        {children}
-        <Cart />
-      </main>
+      <Navbar isSignedIn={!!user?.id} />
+      <main className="relative">{children}</main>
+
       <Footer />
+      <Suspense>
+        <Cart />
+      </Suspense>
     </div>
   );
 }

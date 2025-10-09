@@ -1,3 +1,4 @@
+import Checkout from "@/src/app/_components/checkout/Checkout";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -5,5 +6,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <div>Checkout</div>;
+  return (
+    <div>
+      <Checkout />
+    </div>
+  );
 }
