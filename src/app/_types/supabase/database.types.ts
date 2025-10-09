@@ -126,19 +126,19 @@ export type Database = {
       }
       email_verification_token: {
         Row: {
-          email: string | null
+          email: string
           expires_at: string
           id: string
           token: string | null
         }
         Insert: {
-          email?: string | null
+          email: string
           expires_at: string
           id?: string
           token?: string | null
         }
         Update: {
-          email?: string | null
+          email?: string
           expires_at?: string
           id?: string
           token?: string | null
@@ -147,19 +147,19 @@ export type Database = {
       }
       forgot_password_token: {
         Row: {
-          email: string | null
+          email: string
           expires_at: string
           id: string
           token: string | null
         }
         Insert: {
-          email?: string | null
+          email: string
           expires_at: string
           id?: string
           token?: string | null
         }
         Update: {
-          email?: string | null
+          email?: string
           expires_at?: string
           id?: string
           token?: string | null
