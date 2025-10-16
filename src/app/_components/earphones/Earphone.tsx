@@ -1,3 +1,4 @@
+import ScrollAnimationWrapper from "@/src/app/_components/ui/ScrollAnimationWrapper";
 import { CategoryProductDataType } from "@/src/app/_lib/schema/categories-schema";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,7 +48,7 @@ export default async function Earphone({
         />
       </div>
 
-      <div className="mx-auto max-w-[572px] space-y-6 text-center lg:w-[50%] lg:max-w-[445px] lg:text-left">
+      <ScrollAnimationWrapper style="mx-auto max-w-[572px] space-y-6 text-center lg:w-[50%] lg:max-w-[445px] lg:text-left">
         <p className="text-sm tracking-[10px] text-[#d87d4a] uppercase">
           new product
         </p>
@@ -60,7 +61,7 @@ export default async function Earphone({
         <Link href={`/${earphone.slug}`}>
           <button className="btn btn-default uppercase">see product</button>
         </Link>
-      </div>
+      </ScrollAnimationWrapper>
     </div>
   );
 }
