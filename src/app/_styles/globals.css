@@ -28,7 +28,7 @@
   }
 
   h4 {
-    @apply text-[28px] leading-[38px] font-bold tracking-[2px];
+    @apply text-[28px] leading-[38px] font-bold tracking-[2px] sm:text-[32px];
   }
 
   h5 {
@@ -41,6 +41,10 @@
 
   p {
     @apply text-[15px] leading-[25px];
+  }
+
+  .brown-text {
+    @apply text-brown-dark text-[13px] leading-[25px] font-bold tracking-[0.93px] uppercase;
   }
 }
 
@@ -95,6 +99,18 @@
 
   .field-container .error-msg {
     @apply text-red-color text-right text-xs font-bold;
+  }
+
+  .payment-method label {
+    @apply flex flex-grow items-center text-xs font-bold tracking-[-0.21px] text-black;
+  }
+
+  .payment-method .input-container {
+    @apply flex cursor-pointer items-center gap-5 rounded-lg border border-[#cfcfcf] px-5;
+  }
+
+  .payment-method .input-container label {
+    @apply h-[48px];
   }
 
   /* number */
