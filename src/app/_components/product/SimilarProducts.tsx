@@ -1,4 +1,5 @@
 import ProductImage from "@/src/app/_components/product/ProductImage";
+import ScrollAnimationWrapper from "@/src/app/_components/ui/ScrollAnimationWrapper";
 import { ProductType } from "@/src/app/_lib/schema/product-schema";
 import Link from "next/link";
 
@@ -8,7 +9,7 @@ export default function SimilarProducts({
   product: Pick<ProductType, "others"> | undefined;
 }) {
   return (
-    <div className="mt-28 space-y-11 text-center sm:space-y-14 lg:space-y-[60px]">
+    <ScrollAnimationWrapper style="mt-28 space-y-11 text-center sm:space-y-14 lg:space-y-[60px]">
       <h5 className="uppercase">you may also like</h5>
       {/* products */}
       <div className="flex flex-col gap-10 sm:flex-row sm:gap-3 lg:gap-7">
@@ -53,6 +54,6 @@ export default function SimilarProducts({
           </div>
         ))}
       </div>{" "}
-    </div>
+    </ScrollAnimationWrapper>
   );
 }

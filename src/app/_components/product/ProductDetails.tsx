@@ -4,6 +4,7 @@ import ProductGallery from "@/src/app/_components/product/ProductGallery";
 import SimilarProducts from "@/src/app/_components/product/SimilarProducts";
 import BestGear from "@/src/app/_components/ui/BestGear";
 import Categories from "@/src/app/_components/ui/Categories";
+import ScrollAnimationWrapper from "@/src/app/_components/ui/ScrollAnimationWrapper";
 import { blurDataUrl } from "@/src/app/_lib/blurdataurl";
 import { getCartProducts } from "@/src/app/_lib/services/checkout/cart";
 import { getProduct } from "@/src/app/_lib/services/products/product";
@@ -71,7 +72,7 @@ export default async function ProductDetails({ slug }: ProductDetailsType) {
           )}
         </div>
 
-        <div className="relative border text-left sm:w-[50%] lg:w-[446px]">
+        <ScrollAnimationWrapper style="relative border text-left sm:w-[50%] lg:w-[446px]">
           {product?.new && (
             <p className="text-sm tracking-[10px] text-[#d87d4a] uppercase">
               new product
@@ -91,20 +92,20 @@ export default async function ProductDetails({ slug }: ProductDetailsType) {
           </p>
 
           <ProductButtons product={product} userId={user?.id} />
-        </div>
+        </ScrollAnimationWrapper>
       </div>
 
       {/* features and in the box */}
       <div className="mt-20 flex flex-col gap-24 sm:mt-24 lg:mt-28 lg:flex-row">
         {/* features */}
-        <div className="space-y-8 lg:w-[60%]">
+        <ScrollAnimationWrapper style="space-y-8 lg:w-[60%]">
           <h5 className="font-bold uppercase">features</h5>
 
           <div className="space-y-6 text-black/40">
             <p>{product?.features?.split("\n\n")?.at(0)}</p>
             <p className="">{product?.features?.split("\n\n")?.at(1)}</p>
           </div>
-        </div>
+        </ScrollAnimationWrapper>
 
         {/* in the box */}
         <div className="items-start space-y-5 border sm:flex sm:justify-between lg:w-[40%] lg:flex-col lg:justify-normal">
