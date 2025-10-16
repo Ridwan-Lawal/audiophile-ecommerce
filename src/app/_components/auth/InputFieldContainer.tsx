@@ -4,6 +4,7 @@ interface InputFieldContainerPropsType extends PropsWithChildren {
   label: string;
   htmlFor: string;
   error?: string;
+  style?: string;
 }
 
 export default function InputFieldContainer({
@@ -11,9 +12,10 @@ export default function InputFieldContainer({
   label,
   htmlFor,
   error,
+  style,
 }: InputFieldContainerPropsType) {
   return (
-    <div className="field-container">
+    <div className={`field-container ${style}`}>
       <label htmlFor={htmlFor}>{label}</label>
       <div
         className={`input-container focus-within:border-brown-dark focus-within:border`}

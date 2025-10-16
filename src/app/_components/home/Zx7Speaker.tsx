@@ -1,8 +1,12 @@
+"use client";
+
 import zx7SpeakerDesktopImage from "@/public/home/desktop/image-speaker-zx7.jpg";
 import zx7SpeakerImage from "@/public/home/mobile/image-speaker-zx7.jpg";
 import zx7SpeakerTabletImage from "@/public/home/tablet/image-speaker-zx7.jpg";
+import ScrollAnimationWrapper from "@/src/app/_components/ui/ScrollAnimationWrapper";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Zx7Speaker() {
   return (
@@ -34,13 +38,15 @@ export default function Zx7Speaker() {
         className="hidden w-full lg:block"
       />
 
-      <div className="absolute flex flex-col gap-8 px-6 md:left-24">
+      <ScrollAnimationWrapper style="absolute flex flex-col gap-8 px-6 md:left-24">
         <h4 className="tracking-[2px] uppercase">zx7 speaker</h4>
 
-        <button className="btn btn-default-2 bg-transparent uppercase">
-          see product
-        </button>
-      </div>
+        <Link href="/zx7-speaker">
+          <button className="btn btn-default-2 bg-transparent uppercase">
+            see product
+          </button>
+        </Link>
+      </ScrollAnimationWrapper>
     </div>
   );
 }

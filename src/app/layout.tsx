@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
 
 import ReduxStoreProvider from "@/src/app/_lib/redux/ReduxStoreProvider";
+import Providers from "@/src/app/_lib/tanstack-query/Provider";
 import { manrope } from "@/src/app/_styles/font";
 import "@styles/globals.css";
 import { Metadata } from "next";
@@ -17,14 +18,16 @@ export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
       <body className={`${manrope.className} antialiased`}>
-        <ReduxStoreProvider>
-          {children}
-          <Toaster
-            toastOptions={{
-              duration: 8000,
-            }}
-          />
-        </ReduxStoreProvider>
+        <Providers>
+          <ReduxStoreProvider>
+            {children}
+            <Toaster
+              toastOptions={{
+                duration: 8000,
+              }}
+            />
+          </ReduxStoreProvider>
+        </Providers>
       </body>
     </html>
   );

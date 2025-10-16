@@ -1,7 +1,11 @@
+"use client";
+
 import bannerDesktop from "@/public/home/desktop/image-hero.jpg";
 import banner from "@/public/home/tablet/image-header.jpg";
+import { motion } from "motion/react";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Banner() {
   return (
@@ -27,7 +31,13 @@ export default function Banner() {
           className="hidden w-full object-cover lg:block"
         />
 
-        <div className="absolute z-50 mx-auto flex max-w-[379px] flex-col items-center justify-center gap-6 px-4 lg:mx-0 lg:items-start">
+        <motion.div
+          initial={{ scale: "95%" }}
+          whileInView={{ scale: "100%" }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="absolute z-50 mx-auto flex max-w-[379px] flex-col items-center justify-center gap-6 px-4 lg:mx-0 lg:items-start"
+        >
           <p className="text-sm tracking-[10px] text-white/50 uppercase">
             new product
           </p>
@@ -42,8 +52,10 @@ export default function Banner() {
             made for the passionate music enthusiast.
           </p>
 
-          <button className="btn btn-default uppercase">see product</button>
-        </div>
+          <Link href="/xx99-mark-two-headphones">
+            <button className="btn btn-default uppercase">see product</button>
+          </Link>
+        </motion.div>
       </div>
     </div>
   );

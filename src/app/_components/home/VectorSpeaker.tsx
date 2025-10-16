@@ -1,6 +1,8 @@
 import speakerVector from "@/public/assets/home/speaker-vector.svg";
 import vectorImg from "@/public/home/desktop/pattern-circles.svg";
+import ScrollAnimationWrapper from "@/src/app/_components/ui/ScrollAnimationWrapper";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function VectorSpeaker() {
   return (
@@ -14,12 +16,14 @@ export default function VectorSpeaker() {
         />
 
         <div className="absolute -bottom-[0px] mt-0 flex flex-col items-center justify-center gap-20 pb-12 lg:w-full lg:flex-row lg:gap-36 lg:pb-0">
-          <Image
-            src={speakerVector}
-            alt="speaker image"
-            quality={100}
-            className="relative -bottom-10 lg:h-[493px] lg:w-[410.23px]"
-          />
+          <ScrollAnimationWrapper>
+            <Image
+              src={speakerVector}
+              alt="speaker image"
+              quality={100}
+              className="relative -bottom-10 lg:h-[493px] lg:w-[410.23px]"
+            />
+          </ScrollAnimationWrapper>
 
           <div className="flex flex-col items-center gap-6 lg:items-start lg:gap-10">
             <h1 className="text-center text-white uppercase lg:text-left">
@@ -31,9 +35,11 @@ export default function VectorSpeaker() {
               truly remarkable sound.
             </p>
 
-            <button className="btn bg-black text-white uppercase transition-all hover:bg-[#4C4C4C]">
-              see product
-            </button>
+            <Link href="/zx9-speaker">
+              <button className="btn bg-black text-white uppercase transition-all hover:bg-[#4C4C4C]">
+                see product
+              </button>
+            </Link>
           </div>
         </div>
       </div>
