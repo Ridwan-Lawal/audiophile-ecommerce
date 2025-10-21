@@ -220,6 +220,7 @@ export type Database = {
           emailVerified: string | null
           id: string
           image: string | null
+          isTwoFactorEnabled: boolean | null
           name: string | null
           password: string | null
         }
@@ -228,6 +229,7 @@ export type Database = {
           emailVerified?: string | null
           id?: string
           image?: string | null
+          isTwoFactorEnabled?: boolean | null
           name?: string | null
           password?: string | null
         }
@@ -236,6 +238,7 @@ export type Database = {
           emailVerified?: string | null
           id?: string
           image?: string | null
+          isTwoFactorEnabled?: boolean | null
           name?: string | null
           password?: string | null
         }
