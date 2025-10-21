@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="mt-28 bg-[#101010] px-6 py-14 lg:py-16">
+    <footer className="mt-0 bg-[#101010] px-6 py-14 lg:py-16">
       <div className="mx-auto max-w-[1100px] space-y-10">
         <div className="mx-auto flex max-w-[1100px] flex-col items-center gap-9 sm:items-start lg:flex-row lg:justify-between">
           <Image src={logo} alt="logo" quality={100} />

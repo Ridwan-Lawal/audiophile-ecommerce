@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export default function BestGear() {
   return (
-    <div className="mx-auto mt-20 flex max-w-[1100px] flex-col space-y-8 px-6 lg:flex-row-reverse lg:items-center">
+    <div className="mx-auto mt-20 mb-28 flex max-w-[1100px] flex-col space-y-8 px-6 lg:flex-row-reverse lg:items-center">
       <div className="w-fit border lg:w-[50%]">
         <Image
           src={BestAudioGearImage}

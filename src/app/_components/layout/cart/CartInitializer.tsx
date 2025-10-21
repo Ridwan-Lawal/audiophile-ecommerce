@@ -14,7 +14,7 @@ export default function CartInitializer({
 
   useEffect(() => {
     dispatch(onAddDbCartOnMount(cartProducts));
-  }, [cartProducts, dispatch]);
+  }, [dispatch]);
 
   return null;
 }

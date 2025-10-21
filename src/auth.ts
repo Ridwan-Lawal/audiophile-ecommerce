@@ -1,8 +1,23 @@
-import { getUserById } from "@/src/app/_lib/services/auth/auth-service";
+import {
+  getAccountUserById,
+  getUserById,
+} from "@/src/app/_lib/services/auth/auth-service";
 import { createClient } from "@/src/app/_lib/supabase/server";
 import { authConfig } from "@/src/authConfig";
 import { SupabaseAdapter } from "@auth/supabase-adapter";
-import NextAuth from "next-auth";
+import NextAuth, { DefaultSession } from "next-auth";
+
+declare module "next-auth" {
+  /**
+   * Returned by `auth`, `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
+   */
+  interface Session {
+    user: {
+      isAccountByOAuth: boolean;
+      isTwoFactorEnabled: boolean;
+    } & DefaultSession["user"];
+  }
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: { signIn: "/login" },
@@ -38,9 +53,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         session.user.id = token.sub;
       }
 
+      if (session?.user && token) {
+        session.user.isAccountByOAuth = token.isAccountByOAuth as boolean;
+        session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
+      }
+
       return session;
     },
-    jwt({ token }) {
+    async jwt({ token, trigger, account }) {
+      if (trigger === "signIn" && account) {
+        const isAccountByOAuth = await getAccountUserById(token.sub!);
+        token.isAccountByOAuth = !!isAccountByOAuth;
+      }
+
+      if (token?.sub) {
+        const existingUser = await getUserById(token?.sub);
+        token.isTwoFactorEnabled = existingUser?.isTwoFactorEnabled;
+      }
+
       return token;
     },
   },

@@ -7,16 +7,36 @@ import menu from "@/public/assets/shared/tablet/icon-hamburger.svg";
 import { DESKTOP_MENU_LINKS, MENU_LINKS } from "@/src/app/_lib/constants";
 import { AnimatePresence, motion } from "motion/react";
 
+import RoleGate from "@/src/app/_components/ui/RoleGate";
 import { getCart, onToggleCart } from "@/src/app/_lib/redux/cartSlice";
-import { ChevronRight, X } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  History,
+  Settings,
+  User,
+  UserCog,
+  X,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function Navbar({ isSignedIn }: { isSignedIn: boolean }) {
+interface NavbarType {
+  isSignedIn: boolean;
+  userName: string | undefined | null;
+}
+
+const USER_PROFILE_MENU = [
+  { icon: History, text: "order history", link: "/orderhistory" },
+  { icon: Settings, text: "settings", link: "/settings" },
+];
+
+export default function Navbar({ isSignedIn, userName }: NavbarType) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isNavFixed, setIsNavFixed] = useState(false);
+  const [isUserProfileMenuOpen, setIsUserProfileMenuOpen] = useState(false);
   const dispatch = useDispatch();
   const { cart: offlineCart, cartFromDb } = useSelector(getCart);
 
@@ -33,6 +53,9 @@ export default function Navbar({ isSignedIn }: { isSignedIn: boolean }) {
   const cartLength = isSignedIn ? cartFromDbLength : offlineCartLength;
 
   const handleNavToggling = () => setIsNavOpen((cur) => !cur);
+
+  const handleProfileMenuToggling = () =>
+    setIsUserProfileMenuOpen((cur) => !cur);
 
   useEffect(() => {
     function handleResizeWindow() {
@@ -62,6 +85,21 @@ export default function Navbar({ isSignedIn }: { isSignedIn: boolean }) {
     window.addEventListener("scroll", handleNavOnScroll);
 
     return () => window.removeEventListener("scroll", handleNavOnScroll);
+  }, []);
+
+  // CLOSE PROFILE MENU ON BLUR
+  useEffect(() => {
+    function onClickOutsideMenu(e: MouseEvent) {
+      const el = e.target as HTMLElement;
+
+      if (!el.closest(".user-profile-menu")) {
+        setIsUserProfileMenuOpen(false);
+      }
+    }
+
+    window.addEventListener("click", onClickOutsideMenu);
+
+    return () => window.removeEventListener("click", onClickOutsideMenu);
   }, []);
 
   return (
@@ -114,23 +152,65 @@ export default function Navbar({ isSignedIn }: { isSignedIn: boolean }) {
           className="sm:hidden"
         />
 
-        <div className="relative">
-          <button
-            aria-label="cart-button"
-            onClick={() => dispatch(onToggleCart())}
-            className="cart-button"
-          >
-            <Image
-              src={cart}
-              alt="cart-button"
-              quality={100}
-              priority={true}
-              className="z-20"
-            />
-          </button>
-          <p className="absolute -top-2 -right-2 z-30 flex size-4 items-center justify-center rounded-full bg-red-600 py-[8.5px] text-[12px] font-bold text-white">
-            {cartLength}
-          </p>
+        <div className="flex items-center gap-6">
+          <div className="relative">
+            <button
+              aria-label="cart-button"
+              onClick={() => dispatch(onToggleCart())}
+              className="cart-button"
+            >
+              <Image
+                src={cart}
+                alt="cart-button"
+                quality={100}
+                priority={true}
+                className="z-20"
+              />
+            </button>
+            <p className="absolute -top-2 -right-2 z-30 flex size-4 items-center justify-center rounded-full bg-red-600 py-[8.5px] text-[12px] font-bold text-white">
+              {cartLength}
+            </p>
+          </div>
+
+          {/* profile */}
+          <RoleGate isSignedIn={isSignedIn}>
+            <div className="user-profile-menu relative">
+              <button
+                className="flex items-center gap-1"
+                onClick={handleProfileMenuToggling}
+              >
+                <UserCog className="text-white" />
+
+                <ChevronDown className="size-5 text-white" />
+              </button>
+
+              <ul
+                className={`absolute top-10 right-2 z-40 flex min-w-[200px] flex-col gap-3 rounded-md bg-white px-5 py-4 ${isUserProfileMenuOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-4 opacity-0"} transition-all`}
+              >
+                {USER_PROFILE_MENU?.map((userlink, idx) => (
+                  <Link href={userlink.link} key={idx}>
+                    <li className="flex items-center gap-4 text-sm text-neutral-600 transition-all hover:text-black">
+                      <span>
+                        <userlink.icon className="size-4" />
+                      </span>
+
+                      <span className="w-full font-medium capitalize">
+                        {userlink?.text}
+                      </span>
+                    </li>
+                  </Link>
+                ))}
+
+                <li className="mt-2 flex items-center gap-4 text-sm text-neutral-800 transition-all">
+                  <span>
+                    <User className="size-4" />
+                  </span>
+
+                  <span className="w-full capitalize">{userName}</span>
+                </li>
+              </ul>
+            </div>
+          </RoleGate>
         </div>
       </div>
 
