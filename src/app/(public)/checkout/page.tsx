@@ -28,9 +28,11 @@ export default async function Page() {
       <HydrationBoundary state={dehydrate(queryClient)}>
         <SessionProvider session={user}>
           <Checkout />
+          <CheckoutSuccess />
         </SessionProvider>
       </HydrationBoundary>
-      <CheckoutSuccess />
     </div>
   );
 }
+
+// when i click on continue & pay in the checkout, clear the cart

@@ -5,13 +5,6 @@ import { cookies } from "next/headers";
 export async function createClient() {
   const cookieStore = await cookies();
 
-  console.log("SUPABASE_URL:", process.env.NEXT_URL_SUPABASE_URL);
-  console.log("SERVICE_ROLE exists:", !!process.env.SUPABASE_SERVICE_ROLE_KEY);
-  console.log(
-    "SERVICE_ROLE first 20 chars:",
-    process.env.SUPABASE_SERVICE_ROLE_KEY?.substring(0, 20),
-  );
-
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!,
@@ -35,3 +28,5 @@ export async function createClient() {
     },
   );
 }
+
+export type OrderHistory = Database["public"]["Tables"]["order_history"]["Row"];

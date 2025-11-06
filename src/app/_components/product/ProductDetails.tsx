@@ -16,10 +16,10 @@ interface ProductDetailsType {
 }
 
 export default async function ProductDetails({ slug }: ProductDetailsType) {
-  const [product, user, cart] = await Promise.all([
+  const user = await getUser();
+  const [product, cart] = await Promise.all([
     getProduct(slug),
-    getUser(),
-    getCartProducts(),
+    getCartProducts(user?.id),
   ]);
 
   console.log(product, "product-2");

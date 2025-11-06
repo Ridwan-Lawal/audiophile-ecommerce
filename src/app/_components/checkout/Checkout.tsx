@@ -4,18 +4,29 @@ import CheckoutForm from "@/src/app/_components/checkout/CheckoutForm";
 import OrderSummary from "@/src/app/_components/checkout/OrderSummary";
 import BackButton from "@/src/app/_components/product/BackButton";
 import { useAddOfflineCartToDb } from "@/src/app/_hooks/cart/useAddOfflineCartToDb";
+import { checkoutOrderAction } from "@/src/app/_lib/actions/cart/order-checkout";
+import {
+  onDeleteAllCartProductFromOfflineCart,
+  onRemoveAllDbCartProduct,
+  onToggleSuccessModal,
+} from "@/src/app/_lib/redux/cartSlice";
+import { useAppDispatch } from "@/src/app/_lib/redux/hooks";
 import { CheckoutSchema } from "@/src/app/_lib/schema/checkout-schema";
 import { CheckoutSchemaType } from "@/src/app/_types/products/checkout-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 type CheckoutSchemaKeysType = keyof CheckoutSchemaType;
 
 export default function Checkout() {
   useAddOfflineCartToDb();
-
-  const { register, handleSubmit, formState, watch, setValue } =
+  const dispatch = useAppDispatch();
+  const queryClient = useQueryClient();
+  const [isCheckingOut, startTransition] = useTransition();
+  const { register, handleSubmit, formState, watch, setValue, reset } =
     useForm<CheckoutSchemaType>({
       resolver: zodResolver(CheckoutSchema),
     });
@@ -51,7 +62,20 @@ export default function Checkout() {
   }, [inputFields]);
 
   function onSubmitForm(data: CheckoutSchemaType) {
-    console.log(data);
+    startTransition(async () => {
+      const res = await checkoutOrderAction(data);
+      if (res?.success) {
+        toast.success(res.success);
+        reset();
+        dispatch(onToggleSuccessModal(true));
+        queryClient.invalidateQueries({ queryKey: ["carts"] });
+        dispatch(onDeleteAllCartProductFromOfflineCart());
+        dispatch(onRemoveAllDbCartProduct());
+      }
+      if (res?.error) {
+        toast.error(res.error);
+      }
+    });
   }
 
   return (
@@ -69,12 +93,19 @@ export default function Checkout() {
             <h4 className="font-bold uppercase">checkout</h4>
 
             {/* FORMS */}
-            <CheckoutForm register={register} errors={errors} />
+            <CheckoutForm
+              register={register}
+              errors={errors}
+              isCheckingOut={isCheckingOut}
+            />
           </div>
 
           {/* ORDER SUMMARY */}
           <div className="lg:w-[35%]">
-            <OrderSummary isAllInputsFilled={isAllInputFieldsFilled} />
+            <OrderSummary
+              isAllInputsFilled={isAllInputFieldsFilled}
+              isCheckingOut={isCheckingOut}
+            />
           </div>
         </form>
       </div>
@@ -82,4 +113,5 @@ export default function Checkout() {
   );
 }
 
-// maybe use stripe for the emoney and pin
+// Call the email confirmation mail on checkout success
+// fix the order history pagination

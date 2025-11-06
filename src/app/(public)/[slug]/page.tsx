@@ -1,4 +1,5 @@
 import ProductDetails from "@/src/app/_components/product/ProductDetails";
+import { ProductDetailsSkeleton } from "@/src/app/_components/skeletons/ProductDetails";
 import { getProduct } from "@/src/app/_lib/services/products/product";
 import { Metadata } from "next";
 import { Suspense } from "react";
@@ -24,7 +25,7 @@ export default async function Page({ params }: ProductDetailsProp) {
   // create the product component
   return (
     <div className="px-4 py-6">
-      <Suspense fallback={<div>Loading...</div>} key={slug}>
+      <Suspense fallback={<ProductDetailsSkeleton />} key={slug}>
         <ProductDetails slug={slug} />
       </Suspense>
     </div>

@@ -19,6 +19,8 @@ interface CartStateType {
   cart: CartType[];
   cartFromDb: CartDataType | undefined;
   cartLength: number;
+  isSuccessModalOpen: boolean;
+  openedOrderHistoryCardId: string;
 }
 
 const initialState: CartStateType = {
@@ -26,12 +28,25 @@ const initialState: CartStateType = {
   cart: [],
   cartFromDb: [],
   cartLength: 0,
+  isSuccessModalOpen: false,
+  openedOrderHistoryCardId: "",
 };
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    onClickOrderHistoryCard(state, action: PayloadAction<string>) {
+      state.openedOrderHistoryCardId =
+        state.openedOrderHistoryCardId === action.payload ? "" : action.payload;
+    },
+    onToggleSuccessModal(state, action: PayloadAction<boolean | undefined>) {
+      if (action.payload) {
+        state.isSuccessModalOpen = action.payload;
+      } else {
+        state.isSuccessModalOpen = !state.isSuccessModalOpen;
+      }
+    },
     // database cart
     onRemoveAllDbCartProduct(state) {
       state.cartFromDb = [];
@@ -132,6 +147,8 @@ const cartSlice = createSlice({
 });
 
 export const {
+  onClickOrderHistoryCard,
+  onToggleSuccessModal,
   onRemoveAllDbCartProduct,
   onUpdateDbCart,
   onAddDbCartOnMount,

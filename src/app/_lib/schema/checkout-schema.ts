@@ -32,10 +32,10 @@ export const CheckoutSchema = z.object({
   eMoneyNum: z
     .string()
     .min(1, "Your e-Money number is required")
-    .min(255, "Invalid e-Money number"),
+    .max(255, "Invalid e-Money number"),
 
   eMoneyPin: z
     .string()
     .min(1, "Your e-Money pin is required")
-    .min(10, "Invalid e-Money pin"),
+    .max(10, "Invalid e-Money pin"),
 });

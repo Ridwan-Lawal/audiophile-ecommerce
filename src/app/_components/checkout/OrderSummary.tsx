@@ -1,5 +1,6 @@
 "use client";
 
+import { SummarySkeleton } from "@/src/app/_components/skeletons/OrderSummarySkeleton";
 import { useGetUser } from "@/src/app/_hooks/auth/useGetUser";
 import { blurDataUrl } from "@/src/app/_lib/blurdataurl";
 import { getCartProductsClient } from "@/src/app/_lib/services/checkout/cart-client";
@@ -8,12 +9,17 @@ import Image from "next/image";
 
 interface OrderSummaryType {
   isAllInputsFilled: boolean;
+  isCheckingOut: boolean;
 }
 
-export default function OrderSummary({ isAllInputsFilled }: OrderSummaryType) {
-  const user = useGetUser();
+export default function OrderSummary({
+  isAllInputsFilled,
+  isCheckingOut,
+}: OrderSummaryType) {
+  const { user } = useGetUser();
 
   console.log(isAllInputsFilled, "yess");
+  console.log(user?.id, "ssssssssssssssssssssssssssssssssssssssssssss");
 
   const {
     data: cart,
@@ -40,7 +46,7 @@ export default function OrderSummary({ isAllInputsFilled }: OrderSummaryType) {
   );
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <SummarySkeleton />;
   }
 
   if (error) {
@@ -107,13 +113,15 @@ export default function OrderSummary({ isAllInputsFilled }: OrderSummaryType) {
           <h6 className="font-bold">${grandTotal?.toLocaleString()}</h6>
         </div>
 
-        <button
-          className="btn btn-default w-full uppercase disabled:cursor-not-allowed disabled:opacity-50"
-          disabled={!isAllInputsFilled}
-          aria-disabled={!isAllInputsFilled}
-        >
-          continue & pay
-        </button>
+        {cart && cart?.length > 0 && (
+          <button
+            className="btn btn-default w-full uppercase disabled:cursor-not-allowed disabled:opacity-50"
+            disabled={!isAllInputsFilled || isCheckingOut}
+            aria-disabled={!isAllInputsFilled || isCheckingOut}
+          >
+            {isCheckingOut ? "Checking out..." : "continue & pay"}
+          </button>
+        )}
       </div>
     </div>
   );

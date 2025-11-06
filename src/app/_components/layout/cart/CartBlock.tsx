@@ -115,6 +115,7 @@ export default function CartBlock({ isSignedIn }: CartCompType) {
                   <button
                     className="btn btn-default w-full uppercase disabled:opacity-40"
                     disabled={totalPrice === 0}
+                    onClick={() => dispatch(onToggleCart(false))}
                   >
                     checkout
                   </button>

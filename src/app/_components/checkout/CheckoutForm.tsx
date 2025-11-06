@@ -9,9 +9,14 @@ import z from "zod";
 interface CheckoutFormType {
   register: UseFormRegister<z.infer<typeof CheckoutSchema>>;
   errors: FieldErrors<CheckoutSchemaType>;
+  isCheckingOut: boolean;
 }
 
-export default function CheckoutForm({ register, errors }: CheckoutFormType) {
+export default function CheckoutForm({
+  register,
+  errors,
+  isCheckingOut,
+}: CheckoutFormType) {
   return (
     <div className="mt-8 space-y-12">
       {/* BILLING DETAILS */}
@@ -31,6 +36,8 @@ export default function CheckoutForm({ register, errors }: CheckoutFormType) {
               defaultValue=""
               autoComplete="name"
               placeholder="First Last"
+              disabled={isCheckingOut}
+              aria-disabled={isCheckingOut}
               aria-invalid={!!errors?.name?.message}
               {...register("name")}
             />
@@ -48,6 +55,8 @@ export default function CheckoutForm({ register, errors }: CheckoutFormType) {
               autoComplete="email"
               placeholder="xyz@gmail.com"
               aria-invalid={!!errors?.email?.message}
+              disabled={isCheckingOut}
+              aria-disabled={isCheckingOut}
               {...register("email")}
             />
           </InputFieldContainer>
@@ -64,6 +73,8 @@ export default function CheckoutForm({ register, errors }: CheckoutFormType) {
               autoComplete="tel"
               placeholder="+1 202-555-0138"
               aria-invalid={!!errors?.phone?.message}
+              disabled={isCheckingOut}
+              aria-disabled={isCheckingOut}
               {...register("phone")}
             />
           </InputFieldContainer>
@@ -89,6 +100,8 @@ export default function CheckoutForm({ register, errors }: CheckoutFormType) {
               autoComplete="billing address-level1"
               placeholder="1137 Williams Avenue"
               aria-invalid={!!errors?.address?.message}
+              disabled={isCheckingOut}
+              aria-disabled={isCheckingOut}
               {...register("address")}
             />
           </InputFieldContainer>
@@ -105,6 +118,8 @@ export default function CheckoutForm({ register, errors }: CheckoutFormType) {
               autoComplete="billing home tel-area-code"
               placeholder="10001"
               aria-invalid={!!errors?.zip?.message}
+              disabled={isCheckingOut}
+              aria-disabled={isCheckingOut}
               {...register("zip")}
             />
           </InputFieldContainer>
@@ -121,6 +136,8 @@ export default function CheckoutForm({ register, errors }: CheckoutFormType) {
               autoComplete="city"
               placeholder="New York"
               aria-invalid={!!errors?.city?.message}
+              disabled={isCheckingOut}
+              aria-disabled={isCheckingOut}
               {...register("city")}
             />
           </InputFieldContainer>
@@ -137,6 +154,8 @@ export default function CheckoutForm({ register, errors }: CheckoutFormType) {
               autoComplete="country-name"
               placeholder="United States"
               aria-invalid={!!errors?.country?.message}
+              disabled={isCheckingOut}
+              aria-disabled={isCheckingOut}
               {...register("country")}
             />
           </InputFieldContainer>
@@ -161,6 +180,8 @@ export default function CheckoutForm({ register, errors }: CheckoutFormType) {
                   id="eMoney"
                   value="eMoney"
                   className="accent-brown-dark size-4 cursor-pointer rounded-full"
+                  disabled={isCheckingOut}
+                  aria-disabled={isCheckingOut}
                   {...register("paymentMethod")}
                 />
 
@@ -177,6 +198,8 @@ export default function CheckoutForm({ register, errors }: CheckoutFormType) {
                   id="cash"
                   value="cash"
                   className="accent-brown-dark size-4 cursor-pointer rounded-full"
+                  disabled={isCheckingOut}
+                  aria-disabled={isCheckingOut}
                   {...register("paymentMethod")}
                 />
 
@@ -204,6 +227,8 @@ export default function CheckoutForm({ register, errors }: CheckoutFormType) {
               defaultValue=""
               placeholder="0020200202"
               aria-invalid={!!errors?.eMoneyNum?.message}
+              disabled={isCheckingOut}
+              aria-disabled={isCheckingOut}
               {...register("eMoneyNum")}
             />
           </InputFieldContainer>
@@ -218,6 +243,8 @@ export default function CheckoutForm({ register, errors }: CheckoutFormType) {
               defaultValue=""
               placeholder="8888"
               aria-invalid={!!errors?.eMoneyPin?.message}
+              disabled={isCheckingOut}
+              aria-disabled={isCheckingOut}
               {...register("eMoneyPin")}
             />
           </InputFieldContainer>
