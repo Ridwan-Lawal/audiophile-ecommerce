@@ -8,18 +8,21 @@ import { DESKTOP_MENU_LINKS, MENU_LINKS } from "@/src/app/_lib/constants";
 import { AnimatePresence, motion } from "motion/react";
 
 import RoleGate from "@/src/app/_components/ui/RoleGate";
+import { useCloseModal } from "@/src/app/_hooks/useCloseModal";
 import { getCart, onToggleCart } from "@/src/app/_lib/redux/cartSlice";
 import {
   ChevronDown,
   ChevronRight,
   History,
+  LogOut,
   Settings,
-  User,
   UserCog,
   X,
 } from "lucide-react";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -34,9 +37,16 @@ const USER_PROFILE_MENU = [
 ];
 
 export default function Navbar({ isSignedIn, userName }: NavbarType) {
-  const [isNavOpen, setIsNavOpen] = useState(false);
   const [isNavFixed, setIsNavFixed] = useState(false);
-  const [isUserProfileMenuOpen, setIsUserProfileMenuOpen] = useState(false);
+  const { isModalOpen, handleModalToggling } =
+    useCloseModal(".user-profile-menu");
+  const {
+    isModalOpen: isNavOpen,
+    handleModalToggling: handleNavToggling,
+    onCloseModal,
+  } = useCloseModal(".nav-modal");
+  const router = useRouter();
+
   const dispatch = useDispatch();
   const { cart: offlineCart, cartFromDb } = useSelector(getCart);
 
@@ -52,15 +62,12 @@ export default function Navbar({ isSignedIn, userName }: NavbarType) {
 
   const cartLength = isSignedIn ? cartFromDbLength : offlineCartLength;
 
-  const handleNavToggling = () => setIsNavOpen((cur) => !cur);
-
-  const handleProfileMenuToggling = () =>
-    setIsUserProfileMenuOpen((cur) => !cur);
+  // const handleNavToggling = () => setIsNavOpen((cur) => !cur);
 
   useEffect(() => {
     function handleResizeWindow() {
       if (window.innerWidth >= 1024) {
-        setIsNavOpen(false);
+        onCloseModal();
       }
     }
 
@@ -69,13 +76,13 @@ export default function Navbar({ isSignedIn, userName }: NavbarType) {
     window.addEventListener("resize", handleResizeWindow);
 
     return () => window.removeEventListener("resize", handleResizeWindow);
-  }, []);
+  }, [onCloseModal]);
 
   // CREATING THIS EFFECT TO STICK NAV ON SCROLL
   useEffect(() => {
     function handleNavOnScroll() {
       console.log(window.scrollY);
-      if (window.scrollY >= 500) {
+      if (window.scrollY >= 200) {
         setIsNavFixed(true);
       } else {
         setIsNavFixed(false);
@@ -88,23 +95,10 @@ export default function Navbar({ isSignedIn, userName }: NavbarType) {
   }, []);
 
   // CLOSE PROFILE MENU ON BLUR
-  useEffect(() => {
-    function onClickOutsideMenu(e: MouseEvent) {
-      const el = e.target as HTMLElement;
-
-      if (!el.closest(".user-profile-menu")) {
-        setIsUserProfileMenuOpen(false);
-      }
-    }
-
-    window.addEventListener("click", onClickOutsideMenu);
-
-    return () => window.removeEventListener("click", onClickOutsideMenu);
-  }, []);
 
   return (
     <nav
-      className={`bg-[#181818] ${isNavFixed ? "fixed z-50 w-full" : "static"} transition-all duration-300`}
+      className={`bg-[#181818] ${isNavFixed ? "fixed z-50 w-full" : "static"} top-0 transition-all duration-300`}
     >
       <div className="mx-auto flex max-w-[1100px] items-center justify-between border-b border-[#333333] bg-[#181818] px-6 py-6">
         <div className="flex items-center justify-between gap-10">
@@ -131,6 +125,7 @@ export default function Navbar({ isSignedIn, userName }: NavbarType) {
             quality={100}
             priority={true}
             className="hidden sm:block"
+            onClick={() => router.push("/")}
           />
         </div>
 
@@ -150,6 +145,7 @@ export default function Navbar({ isSignedIn, userName }: NavbarType) {
           quality={100}
           priority={true}
           className="sm:hidden"
+          onClick={() => router.push("/")}
         />
 
         <div className="flex items-center gap-6">
@@ -177,7 +173,7 @@ export default function Navbar({ isSignedIn, userName }: NavbarType) {
             <div className="user-profile-menu relative">
               <button
                 className="flex items-center gap-1"
-                onClick={handleProfileMenuToggling}
+                onClick={handleModalToggling}
               >
                 <UserCog className="text-white" />
 
@@ -185,11 +181,14 @@ export default function Navbar({ isSignedIn, userName }: NavbarType) {
               </button>
 
               <ul
-                className={`absolute top-10 right-2 z-40 flex min-w-[200px] flex-col gap-3 rounded-md bg-white px-5 py-4 ${isUserProfileMenuOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-4 opacity-0"} transition-all`}
+                className={`absolute top-10 right-2 z-40 flex min-w-[200px] flex-col gap-3 rounded-md bg-white px-5 py-4 ${isModalOpen ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-4 opacity-0"} transition-all`}
               >
                 {USER_PROFILE_MENU?.map((userlink, idx) => (
                   <Link href={userlink.link} key={idx}>
-                    <li className="flex items-center gap-4 text-sm text-neutral-600 transition-all hover:text-black">
+                    <li
+                      className="flex items-center gap-4 text-sm text-neutral-600 transition-all hover:text-black"
+                      onClick={handleModalToggling}
+                    >
                       <span>
                         <userlink.icon className="size-4" />
                       </span>
@@ -201,12 +200,17 @@ export default function Navbar({ isSignedIn, userName }: NavbarType) {
                   </Link>
                 ))}
 
-                <li className="mt-2 flex items-center gap-4 text-sm text-neutral-800 transition-all">
-                  <span>
-                    <User className="size-4" />
+                <li
+                  className="mt-2 flex cursor-pointer items-center gap-4 p-2 text-sm text-neutral-800 transition-all hover:bg-neutral-50"
+                  onClick={() => signOut({ redirectTo: "/" })}
+                >
+                  <span className="w-full capitalize">
+                    {userName?.split(" ")[0]}
                   </span>
 
-                  <span className="w-full capitalize">{userName}</span>
+                  <span>
+                    <LogOut className="size-4" />
+                  </span>
                 </li>
               </ul>
             </div>
@@ -224,7 +228,7 @@ export default function Navbar({ isSignedIn, userName }: NavbarType) {
             className={`fixed h-screen bg-black/50 ${isNavOpen ? "w-full" : "w-0"} z-50`}
           >
             <aside
-              className={`flex w-full flex-col items-center justify-center gap-20 rounded-b-lg border-2 border-yellow-500 bg-white px-6 pt-20 pb-10 sm:flex-row sm:gap-4 ${isNavOpen ? "translate-x-0" : "-translate-x-full"} transition-all duration-1000`}
+              className={`flex w-full flex-col items-center justify-center gap-20 rounded-b-lg border-2 border-yellow-500 bg-white px-6 pt-20 pb-10 sm:flex-row sm:gap-4 ${isNavOpen ? "translate-x-0" : "-translate-x-full"} nav-modal z-50 transition-all duration-1000`}
             >
               {MENU_LINKS?.map((menulink, idx) => (
                 <div
@@ -244,7 +248,10 @@ export default function Navbar({ isSignedIn, userName }: NavbarType) {
                       {menulink.name}{" "}
                     </p>
                     <Link href={menulink.link}>
-                      <button className="flex items-center gap-1 text-[13px] font-bold tracking-[1px] text-black/50 uppercase">
+                      <button
+                        onClick={() => handleNavToggling()}
+                        className="flex items-center gap-1 text-[13px] font-bold tracking-[1px] text-black/50 uppercase"
+                      >
                         shop{" "}
                         <span>
                           <ChevronRight className="text-brown-dark size-4" />

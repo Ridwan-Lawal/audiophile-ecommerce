@@ -1,3 +1,4 @@
+import { CategorySkeleton } from "@/src/app/_components/skeletons/Category";
 import Speakers from "@/src/app/_components/speakers/Speakers";
 import BestGear from "@/src/app/_components/ui/BestGear";
 import Categories from "@/src/app/_components/ui/Categories";
@@ -17,7 +18,7 @@ export default function Page() {
           Speakers
         </h2>
       </div>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<CategorySkeleton />}>
         <Speakers />
       </Suspense>
       <div className="mt-36">

@@ -6,6 +6,10 @@ import facebook from "@/public/assets/shared/desktop/icon-facebook.svg";
 import linkedin from "@/public/assets/shared/desktop/icon-instagram.svg";
 import twitter from "@/public/assets/shared/desktop/icon-twitter.svg";
 
+export const SHIPPING_FEE = 50;
+export const DEFAULT_PAGE = 1;
+export const ORDER_PER_PAGE = 10;
+
 export const ICONS = [facebook, twitter, linkedin];
 
 export const DESKTOP_MENU_LINKS = [

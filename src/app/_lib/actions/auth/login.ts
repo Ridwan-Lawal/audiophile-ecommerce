@@ -6,10 +6,14 @@ import { getUserByEmail } from "@/src/app/_lib/services/auth/auth-service";
 import { sendEmailVerificationMail } from "@/src/app/_lib/services/auth/mail-service";
 import { generateEmailVerificationToken } from "@/src/app/_lib/services/auth/token-service";
 import { LoginSchemaType } from "@/src/app/_types/auth/auth";
-import { signIn } from "@/src/auth";
+import { signIn, signOut } from "@/src/auth";
 import bcrypt from "bcryptjs";
 import { AuthError } from "next-auth";
 import * as z from "zod";
+
+export async function signOutAction() {
+  await signOut({ redirectTo: "/" });
+}
 
 export async function loginAction(data: LoginSchemaType) {
   //This is to validate data serverly

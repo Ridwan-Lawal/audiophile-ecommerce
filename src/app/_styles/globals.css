@@ -121,6 +121,15 @@
   .number-container span {
     @apply text-[13px] font-bold tracking-[1px];
   }
+
+  /* pagination */
+  .pagination__step {
+    @apply text-sm text-gray-600;
+  }
+
+  .pagination__step span {
+    @apply font-bold text-neutral-800;
+  }
 }
 
 @layer utilities {

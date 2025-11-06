@@ -36,7 +36,7 @@ export default function Banner() {
           whileInView={{ scale: "100%" }}
           transition={{ duration: 1, ease: "easeOut" }}
           viewport={{ once: true }}
-          className="absolute z-50 mx-auto flex max-w-[379px] flex-col items-center justify-center gap-6 px-4 lg:mx-0 lg:items-start"
+          className="absolute z-10 mx-auto flex max-w-[379px] flex-col items-center justify-center gap-6 px-4 lg:mx-0 lg:items-start"
         >
           <p className="text-sm tracking-[10px] text-white/50 uppercase">
             new product

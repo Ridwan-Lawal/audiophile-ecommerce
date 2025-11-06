@@ -166,6 +166,56 @@ export type Database = {
         }
         Relationships: []
       }
+      order_history: {
+        Row: {
+          address: string | null
+          city: string | null
+          country: string | null
+          created_at: string
+          email: string | null
+          id: string
+          name: string | null
+          ordered_items: Json | null
+          phone: string | null
+          user_id: string | null
+          zip: string | null
+        }
+        Insert: {
+          address?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string | null
+          ordered_items?: Json | null
+          phone?: string | null
+          user_id?: string | null
+          zip?: string | null
+        }
+        Update: {
+          address?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string | null
+          ordered_items?: Json | null
+          phone?: string | null
+          user_id?: string | null
+          zip?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_history_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       products: {
         Row: {
           category: string | null
@@ -249,10 +299,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      uid: {
-        Args: Record<PropertyKey, never>
-        Returns: string
-      }
+      uid: { Args: never; Returns: string }
     }
     Enums: {
       [_ in never]: never
