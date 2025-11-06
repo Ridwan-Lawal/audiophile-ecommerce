@@ -7,13 +7,15 @@ export default function orderConfirmationEmail(
   const orderedItems = orderData?.ordered_items as CartDataType;
 
   const totalPrice = orderedItems?.reduce(
-    (acc, cur) => acc * (cur.price * cur.quantity),
+    (acc, cur) => acc + cur.price * cur.quantity,
     0,
   );
 
   const shipping = 50;
 
   const grandTotal = totalPrice + shipping;
+
+  console.log(totalPrice);
 
   function generateItemRows(items: CartDataType) {
     return items
@@ -98,14 +100,14 @@ export default function orderConfirmationEmail(
 
                 <tr>
                   <td style="padding: 20px 0 0 0; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; color: #333333;">
-                    shipping
+                    Shipping
                   </td>
-                  <td style="padding: 20px 0 0 0; text-align: right; font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; color: #333333;">
+                  <td style="padding: 18px 0 0 0; text-align: right; font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; color: #333333;">
                     $[shipping]
                   </td>
                 </tr>
                 <tr>
-                  <td style="padding: 20px 0 0 0; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; color: #333333;">
+                  <td style="padding: 18px 0 0 0; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; color: #333333;">
                     Total
                   </td>
                   <td style="padding: 20px 0 0 0; text-align: right; font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; color: #333333;">
@@ -114,7 +116,7 @@ export default function orderConfirmationEmail(
                 </tr>
                 <tr>
                   <td style="padding: 20px 0 0 0; font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; color: #333333;">
-                    Total
+                   Grand Total
                   </td>
                   <td style="padding: 20px 0 0 0; text-align: right; font-family: Arial, sans-serif; font-size: 18px; font-weight: bold; color: #333333;">
                     $[grand total]
