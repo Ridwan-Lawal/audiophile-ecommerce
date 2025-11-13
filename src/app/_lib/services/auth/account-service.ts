@@ -3,14 +3,9 @@ import {
   logSupabaseErrorInDevMode,
 } from "@/src/app/_lib/error-handling";
 import { createClient } from "@/src/app/_lib/supabase/server";
-import { getUser } from "@/src/app/_lib/utils";
-import { redirect } from "next/navigation";
 import { cache } from "react";
 
 export const getAccountUserById = cache(async function (userId: string) {
-  const user = await getUser();
-  if (user) redirect("/login");
-
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("accounts")

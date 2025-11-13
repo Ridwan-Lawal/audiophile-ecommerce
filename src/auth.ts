@@ -33,7 +33,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user, account }) {
+      console.log(account);
       if (account?.provider !== "credentials") {
+        console.log("OAuth sign in detected");
         return true;
       }
       const existingUser = await getUserById(user.id as string);
@@ -76,5 +78,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   }),
   session: { strategy: "jwt" },
   trustHost: true,
+  debug: true,
   ...authConfig,
 });

@@ -14,6 +14,7 @@ import {
   ChevronDown,
   ChevronRight,
   History,
+  LogInIcon,
   LogOut,
   Settings,
   UserCog,
@@ -166,6 +167,12 @@ export default function Navbar({ isSignedIn, userName }: NavbarType) {
               {cartLength}
             </p>
           </div>
+
+          {!isSignedIn && (
+            <Link href={"/login"} className="-mt-2 cursor-pointer">
+              <LogInIcon className="text-white" />
+            </Link>
+          )}
 
           {/* profile */}
           <RoleGate isSignedIn={isSignedIn}>
