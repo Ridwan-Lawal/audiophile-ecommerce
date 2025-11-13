@@ -9,6 +9,9 @@
     "lint": "eslint",
     "update-types": "supabase gen types typescript --project-id ckrytxtpndmamxfrduaj --schema public > src/app/_types/supabase/database.types.ts"
   },
+  "overrides": {
+    "nodemailer": "6.10.1"
+  },
   "dependencies": {
     "@auth/supabase-adapter": "^1.11.1",
     "@hookform/resolvers": "^5.2.1",
