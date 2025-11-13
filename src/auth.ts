@@ -1,7 +1,5 @@
-import {
-  getAccountUserById,
-  getUserById,
-} from "@/src/app/_lib/services/auth/auth-service";
+import { getAccountUserById } from "@/src/app/_lib/services/auth/account-service";
+import { getUserById } from "@/src/app/_lib/services/auth/auth-service";
 import { createClient } from "@/src/app/_lib/supabase/server";
 import { authConfig } from "@/src/authConfig";
 import { SupabaseAdapter } from "@auth/supabase-adapter";
@@ -13,6 +11,7 @@ declare module "next-auth" {
    */
   interface Session {
     user: {
+      id: string;
       isAccountByOAuth: boolean;
       isTwoFactorEnabled: boolean;
     } & DefaultSession["user"];
@@ -34,7 +33,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async signIn({ user, account }) {
+      console.log(account);
       if (account?.provider !== "credentials") {
+        console.log("OAuth sign in detected");
         return true;
       }
       const existingUser = await getUserById(user.id as string);
@@ -77,5 +78,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   }),
   session: { strategy: "jwt" },
   trustHost: true,
+  debug: true,
   ...authConfig,
 });

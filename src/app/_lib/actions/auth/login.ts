@@ -7,8 +7,9 @@ import { sendEmailVerificationMail } from "@/src/app/_lib/services/auth/mail-ser
 import { generateEmailVerificationToken } from "@/src/app/_lib/services/auth/token-service";
 import { LoginSchemaType } from "@/src/app/_types/auth/auth";
 import { signIn, signOut } from "@/src/auth";
+import { AuthError } from "@auth/core/errors";
 import bcrypt from "bcryptjs";
-import { AuthError } from "next-auth";
+
 import * as z from "zod";
 
 export async function signOutAction() {

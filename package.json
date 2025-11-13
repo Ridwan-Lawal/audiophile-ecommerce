@@ -10,7 +10,7 @@
     "update-types": "supabase gen types typescript --project-id ckrytxtpndmamxfrduaj --schema public > src/app/_types/supabase/database.types.ts"
   },
   "dependencies": {
-    "@auth/supabase-adapter": "^1.10.0",
+    "@auth/supabase-adapter": "^1.11.1",
     "@hookform/resolvers": "^5.2.1",
     "@radix-ui/react-switch": "^1.2.6",
     "@react-email/components": "^0.5.7",
@@ -25,7 +25,7 @@
     "lucide-react": "^0.544.0",
     "motion": "^12.23.22",
     "next": "15.5.3",
-    "next-auth": "^4.24.13",
+    "next-auth": "^5.0.0-beta.30",
     "nodemailer": "^7.0.10",
     "plaiceholder": "^3.0.0",
     "prettier-plugin-organize-imports": "^4.2.0",
