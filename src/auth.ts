@@ -1,7 +1,5 @@
-import {
-  getAccountUserById,
-  getUserById,
-} from "@/src/app/_lib/services/auth/auth-service";
+import { getAccountUserById } from "@/src/app/_lib/services/auth/account-service";
+import { getUserById } from "@/src/app/_lib/services/auth/auth-service";
 import { createClient } from "@/src/app/_lib/supabase/server";
 import { authConfig } from "@/src/authConfig";
 import { SupabaseAdapter } from "@auth/supabase-adapter";
@@ -13,6 +11,7 @@ declare module "next-auth" {
    */
   interface Session {
     user: {
+      id: string;
       isAccountByOAuth: boolean;
       isTwoFactorEnabled: boolean;
     } & DefaultSession["user"];

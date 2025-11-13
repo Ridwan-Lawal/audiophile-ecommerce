@@ -201,7 +201,7 @@ export default function Navbar({ isSignedIn, userName }: NavbarType) {
 
                 <li
                   className="mt-2 flex cursor-pointer items-center gap-4 p-2 text-sm text-neutral-800 transition-all hover:bg-neutral-50"
-                  onClick={() => signOut({ redirectTo: "/" })}
+                  onClick={() => signOut({ redirect: true })}
                 >
                   <span className="w-full capitalize">
                     {userName?.split(" ")[0]}
