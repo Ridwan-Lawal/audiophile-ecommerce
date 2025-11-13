@@ -33,19 +33,16 @@ export async function loginAction(data: LoginSchemaType) {
   const existingUser = await getUserByEmail(email);
 
   if (existingUser) {
-    console.log("email ver 1");
     const doesPasswordMatch = await bcrypt.compare(
       password,
       existingUser.password!,
     );
 
     if (doesPasswordMatch && !existingUser?.emailVerified) {
-      console.log("email ver 2");
       const emailVerificationToken =
         await generateEmailVerificationToken(email);
 
       if (emailVerificationToken) {
-        console.log("email ver 3");
         await sendEmailVerificationMail(emailVerificationToken);
 
         return {
@@ -56,8 +53,6 @@ export async function loginAction(data: LoginSchemaType) {
     }
   }
 
-  console.log("email ver 4");
-
   try {
     await signIn("credentials", {
       email,
@@ -65,13 +60,9 @@ export async function loginAction(data: LoginSchemaType) {
       redirect: false,
     });
 
-    console.log("email ver 6");
-
     return { success: true };
   } catch (error) {
     if (error instanceof AuthError) {
-      console.log("email ver 7");
-
       if (process.env.NODE_ENV === "development") {
         logFullErrorInDevMode(error);
       }

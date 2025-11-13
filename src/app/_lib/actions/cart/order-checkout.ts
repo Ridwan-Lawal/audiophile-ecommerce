@@ -71,8 +71,6 @@ export async function checkoutOrderAction(data: CheckoutSchemaType) {
       }
     }
 
-    console.log(data, data?.at(0)?.ordered_items, "ddddddddddddddddddataaaaa");
-
     if (data?.length) {
       await sendOrderConfirmation(email, data?.at(0));
     }

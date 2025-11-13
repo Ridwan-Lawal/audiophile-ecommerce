@@ -36,8 +36,6 @@ export async function sendOrderConfirmation(
       html: orderConfirmationEmail(orderData),
     });
 
-    console.log(message.accepted, message.messageId);
-
     return { success: "Order confirmation email sent" };
   } catch (error) {
     if (error instanceof Error) {

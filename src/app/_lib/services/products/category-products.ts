@@ -1,56 +1,24 @@
 import {
-  getAxiosErrorMessage,
-  logAxiosErrorInDevMode,
+  getUserErrorMesageForGet,
+  logSupabaseErrorInDevMode,
 } from "@/src/app/_lib/error-handling";
-import {
-  AllCategoryProductsDataType,
-  AllCategoryProductsSchema,
-} from "@/src/app/_lib/schema/categories-schema";
-import axios, { AxiosError } from "axios";
-import { unstable_cache } from "next/cache";
-import z from "zod";
+import { CategoryProductDataType } from "@/src/app/_lib/schema/categories-schema";
+import { createClient } from "@/src/app/_lib/supabase/server";
 
-export const getCategoryProducts = unstable_cache(
-  async function (category: string): Promise<AllCategoryProductsDataType> {
-    const url = `${process.env.NEXT_PUBLIC_APP_URL}/api/categories/${category}`;
+export const getCategoryProducts = async function (category: string) {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("products")
+    .select("id, slug, name, category, categoryimage, description")
+    .eq("category", category);
 
-    try {
-      const res = await axios.get<AllCategoryProductsDataType>(url);
-
-      const validatingData = AllCategoryProductsSchema.safeParse(res.data);
-
-      console.log("res", res.data);
-
-      if (!validatingData?.success) {
-        if (process.env.NODE_ENV === "development") {
-          console.log(
-            "Invalid data structure:",
-            z.treeifyError(validatingData.error).items?.[0]?.errors?.at(0),
-          );
-        }
-      }
-
-      return res.data;
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        if (process.env.NODE_ENV === "development") {
-          logAxiosErrorInDevMode(error);
-        }
-
-        const errorMessage = getAxiosErrorMessage(
-          error?.response?.status,
-          error?.code,
-        );
-
-        throw new Error(errorMessage);
-      }
-
-      throw new Error("Something went wrong");
+  if (error) {
+    if (process.env.NODE_ENV === "development") {
+      logSupabaseErrorInDevMode(error);
     }
-  },
-  ["categories-products"],
-  {
-    revalidate: 3600,
-    tags: ["categories-products"],
-  },
-);
+
+    throw new Error(getUserErrorMesageForGet(error));
+  }
+
+  return data as unknown as CategoryProductDataType[];
+};

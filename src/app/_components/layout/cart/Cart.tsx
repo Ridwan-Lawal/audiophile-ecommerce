@@ -5,9 +5,9 @@ import { getUser } from "@/src/app/_lib/utils";
 
 export default async function Cart() {
   const user = await getUser();
-  console.log(user, "ussseeeeeeeeeeeeeeeeeeeeeeeer");
+
   const cartProducts = await getCartProducts(user?.id);
-  console.log(cartProducts, "caaaaaaaaaaaaaaaaaart");
+
   return (
     <>
       <CartBlock isSignedIn={!!user?.id} />

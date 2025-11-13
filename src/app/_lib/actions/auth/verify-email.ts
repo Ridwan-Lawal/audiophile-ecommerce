@@ -14,7 +14,6 @@ import { PostgrestError } from "@supabase/supabase-js";
 export async function verifyEmailAction(tokenFromUrl: string) {
   // Check if token
   const existingToken = await getEmailTokenByToken(tokenFromUrl);
-  console.log(existingToken?.expires_at, "verrrrrrrrrrrrifyyy", tokenFromUrl);
 
   const tokenError =
     "Invalid token, Please try registering or signing in again to verify email";

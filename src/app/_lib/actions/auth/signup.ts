@@ -12,7 +12,6 @@ import * as z from "zod";
 export async function signupAction(formData: SignupSchemaType) {
   const supabase = await createClient();
   const validatingFormData = SignupSchema.safeParse(formData);
-  console.log("email now");
 
   if (!validatingFormData.success) {
     const error = z.treeifyError(validatingFormData.error).properties;

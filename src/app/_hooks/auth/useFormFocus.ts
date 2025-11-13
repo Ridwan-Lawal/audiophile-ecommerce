@@ -9,7 +9,6 @@ export function useFormFocus() {
     if (!nameInputEl) return;
 
     function onFocusInput() {
-      console.log(focus);
       setInputIsFocus(true);
     }
 

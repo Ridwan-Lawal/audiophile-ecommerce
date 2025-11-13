@@ -18,9 +18,6 @@ export default function OrderSummary({
 }: OrderSummaryType) {
   const { user } = useGetUser();
 
-  console.log(isAllInputsFilled, "yess");
-  console.log(user?.id, "ssssssssssssssssssssssssssssssssssssssssssss");
-
   const {
     data: cart,
     isLoading,

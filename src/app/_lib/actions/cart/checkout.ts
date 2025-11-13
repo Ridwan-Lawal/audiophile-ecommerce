@@ -89,8 +89,6 @@ export async function updateProductQuantityInCart(
   const user = await getUser();
   if (!user?.id) redirect("/login");
 
-  console.log(id, "iddddddddddddddddddddddddddddddddddddddd");
-
   try {
     const supabase = await createClient();
     const { data, error } = await supabase
@@ -150,11 +148,8 @@ export async function addProductToCart(
 }
 
 export async function addCartOnPageMountAction(products: CartType[]) {
-  console.log("numbbbbbbbbbbbbbbbb");
-
   const user = await getUser();
   if (!user || !user?.id) {
-    console.log("login");
     redirect("/login");
   }
 

@@ -11,8 +11,6 @@ export default async function OrderHistory({
   const user = await getUser();
   const { data: orderHistory, count } = await getOrderHistory(user?.id, page);
 
-  console.log(orderHistory, "order");
-
   return (
     <div className="space-y-6">
       <div className="space-y-4">

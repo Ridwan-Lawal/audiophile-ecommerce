@@ -9,7 +9,7 @@ import {
   onUpdateCartProductQuantity,
   onUpdateDbCart,
 } from "@/src/app/_lib/redux/cartSlice";
-import { CartProductDataType } from "@/src/app/_lib/schema/cart-shema";
+import { CartDbType } from "@/src/app/_lib/supabase/client";
 import { Minus, Plus, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +17,7 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 
 interface CartProductCard {
-  product: CartType | CartProductDataType;
+  product: CartType | CartDbType;
   isSignedIn: boolean;
 }
 
@@ -25,7 +25,7 @@ export default function CartProductCard({
   product,
   isSignedIn,
 }: CartProductCard) {
-  const price = 2999;
+  const price = product?.price * product?.quantity;
   const dispatch = useDispatch();
 
   async function handleCartProductQuantity(order: "incr" | "decr") {
@@ -88,7 +88,7 @@ export default function CartProductCard({
         </div>
 
         {/* name and price */}
-        <div className="w-[80%] flex-col gap-1 border">
+        <div className="w-[80%] flex-col gap-1">
           <Link href={`/${product?.slug}`}>
             {" "}
             <p className="font-bold uppercase hover:underline">

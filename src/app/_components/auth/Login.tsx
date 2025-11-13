@@ -79,7 +79,6 @@ export default function Login() {
       if (res.success) {
         reset();
 
-        console.log(DEFAULT_LOGIN_REDIRECT, "redirec");
         router.push(callbackUrl || DEFAULT_LOGIN_REDIRECT);
       }
     });

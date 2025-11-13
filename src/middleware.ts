@@ -4,13 +4,11 @@ import { apiAuthPrefix, authRoutes, privateRoutes } from "@/src/routes";
 export default auth((req) => {
   const isLoggedIn = !!req.auth;
   const currentPath = req.nextUrl.pathname;
-  console.log("Route: ", req.nextUrl.pathname);
 
   const isPrivateRoute = privateRoutes.includes(currentPath);
   const isAuthRoute = authRoutes.includes(currentPath);
   const isApiAuthRoute = currentPath.startsWith(apiAuthPrefix);
 
-  console.log(isAuthRoute, isLoggedIn);
   if (isApiAuthRoute) {
     return;
   }
@@ -20,12 +18,10 @@ export default auth((req) => {
   }
 
   if (isLoggedIn && isAuthRoute) {
-    console.log("yes");
     return Response.redirect(new URL("/", req.nextUrl));
   }
 
   if (!isLoggedIn && isPrivateRoute) {
-    console.log("okay");
     let callbackUrl = currentPath;
 
     if (req.nextUrl.search) {

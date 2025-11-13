@@ -9,8 +9,8 @@ export default function ProductGallery({
   product: Pick<ProductType, "gallery"> | undefined;
 }) {
   return (
-    <div className="justify-items-between mt-28 grid h-[756px] grid-flow-dense grid-cols-1 grid-rows-4 gap-5 border border-green-600 sm:h-[395px] sm:grid-cols-5 lg:h-[592px]">
-      <ScrollAnimationWrapper style="border border-red-700 sm:col-span-2 sm:row-span-2">
+    <div className="justify-items-between mt-28 grid h-[756px] grid-flow-dense grid-cols-1 grid-rows-4 gap-5 sm:h-[395px] sm:grid-cols-5 lg:h-[592px]">
+      <ScrollAnimationWrapper style=" -red-700 sm:col-span-2 sm:row-span-2">
         {product?.gallery?.first && (
           <picture>
             <source
@@ -37,7 +37,7 @@ export default function ProductGallery({
         )}
       </ScrollAnimationWrapper>
 
-      <ScrollAnimationWrapper style="border border-blue-700 sm:order-3 sm:col-span-2 sm:row-span-2">
+      <ScrollAnimationWrapper style=" -blue-700 sm:order-3 sm:col-span-2 sm:row-span-2">
         {product?.gallery?.second && (
           <picture>
             <source
@@ -64,7 +64,7 @@ export default function ProductGallery({
         )}
       </ScrollAnimationWrapper>
 
-      <ScrollAnimationWrapper style="row-span-2 border border-black sm:order-2 sm:col-span-3 sm:row-span-4">
+      <ScrollAnimationWrapper style="row-span-2  -black sm:order-2 sm:col-span-3 sm:row-span-4">
         {product?.gallery?.third && (
           <picture>
             <source

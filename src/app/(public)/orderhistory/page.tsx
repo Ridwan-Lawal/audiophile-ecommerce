@@ -14,7 +14,7 @@ export default async function Page({
 
   return (
     <div className="bg-white-3">
-      <div className="mx-auto max-w-[1100px] border px-6 pt-8 pb-16">
+      <div className="mx-auto max-w-[1100px] px-6 pt-8 pb-16">
         <BackButton />
 
         <div className="mt-8 space-y-8 rounded-lg bg-white px-6 py-8">
