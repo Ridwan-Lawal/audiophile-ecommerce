@@ -1,6 +1,6 @@
 import ScrollAnimationWrapper from "@/src/app/_components/ui/ScrollAnimationWrapper";
+import { blurDataUrl } from "@/src/app/_lib/blurdataurl";
 import { CategoryProductDataType } from "@/src/app/_lib/schema/categories-schema";
-import { getBlurDataUrl } from "@/src/app/_lib/services/products/images";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,11 +10,6 @@ export default async function Headphone({
   headphone: CategoryProductDataType;
 }) {
   const images = Object.values(headphone.categoryimage);
-
-  const [mobileBlurDataUrl, tabletBlurDataUrl, desktopBlurDataUrl] =
-    await Promise.all(
-      images.map(async (image) => await getBlurDataUrl(image.slice(1))),
-    );
 
   return (
     <div
@@ -26,8 +21,8 @@ export default async function Headphone({
           src={headphone?.categoryimage?.mobile.slice(1)}
           alt={headphone?.name}
           quality={100}
-          placeholder={mobileBlurDataUrl ? "blur" : "empty"}
-          blurDataURL={mobileBlurDataUrl ?? ""}
+          placeholder="blur"
+          blurDataURL={blurDataUrl}
           priority={true}
           fill
           className="object-cover sm:hidden"
@@ -37,8 +32,8 @@ export default async function Headphone({
           src={headphone?.categoryimage?.tablet.slice(1)}
           alt={headphone?.name}
           quality={100}
-          placeholder={tabletBlurDataUrl ? "blur" : "empty"}
-          blurDataURL={tabletBlurDataUrl ?? ""}
+          placeholder="blur"
+          blurDataURL={blurDataUrl}
           priority={true}
           fill
           className="hidden object-cover sm:block lg:hidden"
@@ -48,8 +43,8 @@ export default async function Headphone({
           src={headphone?.categoryimage?.desktop.slice(1)}
           alt={headphone?.name}
           quality={100}
-          placeholder={desktopBlurDataUrl ? "blur" : "empty"}
-          blurDataURL={desktopBlurDataUrl ?? ""}
+          placeholder="blur"
+          blurDataURL={blurDataUrl}
           priority={true}
           fill
           className="hidden object-cover lg:block"
