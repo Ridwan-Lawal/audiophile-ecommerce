@@ -48,8 +48,6 @@ export default function CartBlock({ isSignedIn }: CartCompType) {
     0,
   );
 
-  console.log(totalPrice);
-
   return (
     <AnimatePresence>
       {isCartOpen && (
@@ -58,15 +56,15 @@ export default function CartBlock({ isSignedIn }: CartCompType) {
           animate={{ opacity: 1, transition: { when: "beforeChildren" } }}
           exit={{ opacity: 0, transition: { when: "afterChildren" } }}
           transition={{ ease: "easeIn" }}
-          className={`fixed top-0 left-0 z-50 flex h-full w-full flex-col items-center justify-center gap-8 border bg-black/40 py-28 backdrop-blur-[1px] sm:items-end sm:justify-start sm:py-10 sm:pr-10`}
+          className={`fixed top-0 left-0 z-50 flex h-full w-full flex-col items-center justify-center gap-8 bg-black/40 py-28 backdrop-blur-[1px] sm:items-end sm:justify-start sm:py-10 sm:pr-10`}
         >
-          <div className="flex w-[320px] justify-end border">
+          <div className="flex w-[320px] justify-end">
             <button className="w-fit" onClick={() => dispatch(onToggleCart())}>
               <X className="text-white" />
             </button>
           </div>
           <div
-            className={`lg; hide-scrollbar h-[488px] max-w-[400px] overflow-y-scroll rounded-[8px] border-2 border-black bg-white px-6 py-8 sm:w-full sm:max-w-[377px] ${isCartOpen ? "scale-100" : "scale-75"} cartBlock relative transition-transform`}
+            className={`lg; hide-scrollbar h-[488px] max-w-[400px] overflow-y-scroll rounded-[8px] bg-white px-6 py-8 sm:w-full sm:max-w-[377px] ${isCartOpen ? "scale-100" : "scale-75"} cartBlock relative transition-transform`}
             id="cart-block"
           >
             <header className="flex items-center justify-between">

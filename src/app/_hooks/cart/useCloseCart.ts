@@ -12,12 +12,6 @@ export function useCloseCart() {
       const isElementClickInsideOfCart = targetEl.closest(".cartBlock");
       const isCartButton = targetEl.closest(".cart-button");
 
-      console.log(targetEl.closest, targetEl);
-
-      console.log(
-        isElementClickInsideOfCart,
-        "elemennnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnt",
-      );
       if (isCartOpen) {
         if (!isElementClickInsideOfCart) {
           dispatch(onToggleCart(false));

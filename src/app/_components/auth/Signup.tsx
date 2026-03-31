@@ -32,7 +32,6 @@ export default function Signup() {
     });
   const { errors } = formState;
   const formValues = watch();
-  console.log(formValues, "formvalues");
   const allFieldAreFilled =
     formValues.name &&
     formValues.email &&
@@ -60,7 +59,6 @@ export default function Signup() {
   }, [formValues]);
 
   function onSubmitForm(data: SignupSchemaType) {
-    console.log(data, "submitttttttttttttttt");
     startTransition(async () => {
       const res = await signupAction(data);
 

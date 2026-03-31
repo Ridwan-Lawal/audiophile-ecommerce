@@ -4,8 +4,6 @@ import { getCategoryProducts } from "@/src/app/_lib/services/products/category-p
 export default async function Earphones() {
   const earphones = await getCategoryProducts("earphones");
 
-  console.log(earphones, "earphones");
-
   return (
     <div className="mt-28 flex flex-col gap-28">
       {/* first product */}

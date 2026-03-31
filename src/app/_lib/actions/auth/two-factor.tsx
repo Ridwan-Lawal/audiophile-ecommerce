@@ -26,8 +26,6 @@ export async function updateTwoFactorOption(option: boolean) {
   }
 
   revalidatePath("/");
-  console.log(option, "optioooooooooon");
-  console.log(user, "useeeeeeeeeeeer");
 
   return { success: true };
 }

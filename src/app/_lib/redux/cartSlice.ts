@@ -55,8 +55,6 @@ const cartSlice = createSlice({
     onUpdateDbCart(state, action: PayloadAction<OptimisticAction>) {
       const { type, id, quantity, newProduct } = action.payload;
 
-      console.log(newProduct, "neeeewwww");
-
       if (type === "add" && state.cartFromDb && newProduct) {
         state.cartFromDb = [...state.cartFromDb, newProduct];
       }

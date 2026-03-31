@@ -8,9 +8,9 @@ export default async function Layout({ children }: PropsWithChildren) {
   const user = await getUser();
 
   return (
-    <div className="border-2 border-blue-600">
+    <div className="">
       <Navbar isSignedIn={!!user?.id} userName={user?.name} />
-      <main className="relative border-2 border-green-600">{children}</main>
+      <main className="relative">{children}</main>
 
       <Footer />
       <Suspense>

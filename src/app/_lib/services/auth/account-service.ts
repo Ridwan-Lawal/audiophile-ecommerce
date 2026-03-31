@@ -2,21 +2,15 @@ import {
   getUserErrorMesageForGet,
   logSupabaseErrorInDevMode,
 } from "@/src/app/_lib/error-handling";
-import { CartDataType } from "@/src/app/_lib/schema/cart-shema";
 import { createClient } from "@/src/app/_lib/supabase/server";
 import { cache } from "react";
 
-export const getCartProducts = cache(async function (
-  userId: string | undefined,
-) {
-  if (!userId) return;
-
+export const getAccountUserById = cache(async function (userId: string) {
   const supabase = await createClient();
   const { data, error } = await supabase
-    .from("cart")
+    .from("accounts")
     .select("*")
-    .eq("userid", userId)
-    .order("created_at", { ascending: false });
+    .eq("userId", userId);
 
   if (error) {
     if (process.env.NODE_ENV === "development") {
@@ -26,5 +20,5 @@ export const getCartProducts = cache(async function (
     throw new Error(getUserErrorMesageForGet(error));
   }
 
-  return data as CartDataType;
+  return data?.at(0);
 });

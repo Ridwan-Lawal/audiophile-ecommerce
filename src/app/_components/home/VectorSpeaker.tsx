@@ -6,8 +6,8 @@ import Link from "next/link";
 
 export default function VectorSpeaker() {
   return (
-    <div className="mx-auto max-w-[1100px] border border-red-600 px-6">
-      <div className="bg-brown-dark relative mt-18 flex h-[689px] w-full justify-center overflow-hidden rounded-lg border border-green-800 px-20 pt-6 pb-0 lg:h-[560px] lg:pt-0 lg:pb-0">
+    <div className="mx-auto max-w-[1100px] px-6">
+      <div className="bg-brown-dark relative mt-18 flex h-[689px] w-full justify-center overflow-hidden rounded-lg px-20 pt-6 pb-0 lg:h-[560px] lg:pt-0 lg:pb-0">
         <Image
           src={vectorImg}
           alt="vector image"

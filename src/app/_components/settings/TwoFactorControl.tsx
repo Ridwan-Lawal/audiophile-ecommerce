@@ -24,8 +24,6 @@ export default function TwoFactorControl() {
     }
   };
 
-  console.log(isTwoFactorEnabled);
-
   return (
     <div className="mx-auto max-w-[1100px] rounded-md bg-white px-6 py-4">
       <div className="flex items-center justify-between">

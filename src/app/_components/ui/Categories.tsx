@@ -13,7 +13,7 @@ export default function Categories() {
   return (
     <ScrollAnimationWrapper>
       <div
-        className={`mx-auto mt-6 flex w-full max-w-[1100px] flex-col items-center justify-center gap-20 rounded-b-lg border-2 border-yellow-500 bg-white px-6 pt-20 pb-10 sm:flex-row sm:gap-4 md:mt-12`}
+        className={`mx-auto mt-6 flex w-full max-w-[1100px] flex-col items-center justify-center gap-20 rounded-b-lg bg-white px-6 pt-20 pb-10 sm:flex-row sm:gap-4 md:mt-12`}
       >
         {MENU_LINKS?.map((menulink, idx) => (
           <div

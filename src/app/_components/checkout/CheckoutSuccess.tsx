@@ -12,25 +12,27 @@ import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 export default function CheckoutSuccess() {
   const { user } = useGetUser();
   const router = useRouter();
+  const pathname = usePathname();
 
   const { data: orderDetails, error } = useQuery({
     queryKey: ["orders"],
     queryFn: () => getOrdersClient(user?.id),
   });
+
+  console.log(orderDetails?.ordered_items);
+
   const { isSuccessModalOpen } = useAppSelector(getCart);
   const dispatch = useAppDispatch();
 
   const cartProducts = orderDetails?.ordered_items as CartDbType[];
 
   const firstProductToDisplay = cartProducts?.at(0);
-
-  console.log(firstProductToDisplay?.image?.slice(1), "yess");
 
   const otherItemsLength = cartProducts?.slice(1).length;
 
@@ -54,6 +56,10 @@ export default function CheckoutSuccess() {
 
     return () => window.removeEventListener("click", handleOnBlurModal);
   }, [dispatch, isSuccessModalOpen, router]);
+
+  useEffect(() => {
+    dispatch(onToggleSuccessModal(false));
+  }, [pathname]);
 
   if (error) {
     throw new Error(error.message);
@@ -130,7 +136,7 @@ export default function CheckoutSuccess() {
                   and {otherItemsLength} other item(s)
                 </p>
               </div>
-              <div className="flex h-[92px] flex-col justify-center gap-2 border bg-black object-cover px-6 sm:h-full sm:w-[40%]">
+              <div className="flex h-[92px] flex-col justify-center gap-2 bg-black object-cover px-6 sm:h-full sm:w-[40%]">
                 <p className="text-neutral-400 uppercase">grand total</p>
                 <p className="text-lg font-bold text-white">
                   ${(grandTotal + SHIPPING_FEE)?.toLocaleString()}

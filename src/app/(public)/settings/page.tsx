@@ -7,7 +7,7 @@ import { SessionProvider } from "next-auth/react";
 export default async function Page() {
   const session = await auth();
   return (
-    <div className="bg-white-3 h-full space-y-8 border border-black px-6 pt-8 pb-14">
+    <div className="bg-white-3 h-full space-y-8 px-6 pt-8 pb-14">
       <div className="mx-auto max-w-[1100px] space-y-8">
         <BackButton />
 

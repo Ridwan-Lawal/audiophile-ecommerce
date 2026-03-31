@@ -57,7 +57,6 @@ export async function resetPasswordAction(
     new Date(existingToken?.expires_at).getTime() < new Date().getTime();
 
   if (hasExpired) {
-    console.log("Ridwan");
     return {
       error: errMessage,
     };
@@ -67,7 +66,6 @@ export async function resetPasswordAction(
   const existingUserForToken = await getUserByEmail(existingToken.email!);
 
   if (!existingUserForToken) {
-    console.log("yes");
     return {
       error: errMessage,
     };
@@ -125,7 +123,7 @@ export async function forgotPasswordAction(formData: ForgotPasswordSchemaType) {
   //   TODO: Generate a token for the email.
   const resetPasswordToken = await generateForgotPasswordToken(email);
   if (resetPasswordToken) {
-    await sendPasswordResetMail(resetPasswordToken.token!);
+    await sendPasswordResetMail(resetPasswordToken.token!, email);
   }
 
   return {

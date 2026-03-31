@@ -32,10 +32,7 @@ export default function ChangePasswordForm() {
     (value) => value,
   );
 
-  console.log(areAllFormInputsFilledOut);
-
   function onSubmitForm(data: ChangePasswordSchemaType) {
-    console.log(data);
     startTransition(async () => {
       const res = await changePasswordAction(data);
 

@@ -22,10 +22,8 @@ export default async function ProductDetails({ slug }: ProductDetailsType) {
     getCartProducts(user?.id),
   ]);
 
-  console.log(product, "product-2");
-
   return (
-    <div className="sm mx-auto max-w-[500px] border px-4 sm:max-w-[700px] md:px-6 lg:max-w-[1110px]">
+    <div className="sm mx-auto max-w-[500px] px-4 sm:max-w-[700px] md:px-6 lg:max-w-[1110px]">
       {/* first section image and desc */}
       <BackButton />
 
@@ -72,7 +70,7 @@ export default async function ProductDetails({ slug }: ProductDetailsType) {
           )}
         </div>
 
-        <ScrollAnimationWrapper style="relative border text-left sm:w-[50%] lg:w-[446px]">
+        <ScrollAnimationWrapper style="relative  text-left sm:w-[50%] lg:w-[446px]">
           {product?.new && (
             <p className="text-sm tracking-[10px] text-[#d87d4a] uppercase">
               new product
@@ -108,7 +106,7 @@ export default async function ProductDetails({ slug }: ProductDetailsType) {
         </ScrollAnimationWrapper>
 
         {/* in the box */}
-        <div className="items-start space-y-5 border sm:flex sm:justify-between lg:w-[40%] lg:flex-col lg:justify-normal">
+        <div className="items-start space-y-5 sm:flex sm:justify-between lg:w-[40%] lg:flex-col lg:justify-normal">
           <h5 className="font-bold uppercase">in the box</h5>
           <ul className="space-y-2">
             {product?.includes?.map((item, idx) => (

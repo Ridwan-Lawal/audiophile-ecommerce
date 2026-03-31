@@ -52,4 +52,11 @@ export const ProductSchema = z
   })
   .strict();
 
+const ImageSchema = z.object({
+  mobile: z.string(),
+  tablet: z.string(),
+  desktop: z.string(),
+});
+
 export type ProductType = z.infer<typeof ProductSchema>;
+export type ImageType = z.infer<typeof ImageSchema>;

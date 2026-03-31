@@ -15,8 +15,6 @@ export default function orderConfirmationEmail(
 
   const grandTotal = totalPrice + shipping;
 
-  console.log(totalPrice);
-
   function generateItemRows(items: CartDataType) {
     return items
       .map(

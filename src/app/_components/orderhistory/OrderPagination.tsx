@@ -34,8 +34,6 @@ export default function OrderPagination({
 
   const lastPage = +currentPage === +totalPages;
 
-  console.log(lastPage, currentPage, totalPages);
-
   useEffect(() => {
     const { from, to } = getPaginationValues(+currentPage);
 

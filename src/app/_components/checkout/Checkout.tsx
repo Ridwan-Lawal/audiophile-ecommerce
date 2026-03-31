@@ -15,6 +15,7 @@ import { CheckoutSchema } from "@/src/app/_lib/schema/checkout-schema";
 import { CheckoutSchemaType } from "@/src/app/_types/products/checkout-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useQueryClient } from "@tanstack/react-query";
+import { usePathname } from "next/navigation";
 import { useEffect, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -23,6 +24,7 @@ type CheckoutSchemaKeysType = keyof CheckoutSchemaType;
 
 export default function Checkout() {
   useAddOfflineCartToDb();
+  const pathname = usePathname();
   const dispatch = useAppDispatch();
   const queryClient = useQueryClient();
   const [isCheckingOut, startTransition] = useTransition();
@@ -56,6 +58,10 @@ export default function Checkout() {
   }, [setValue]);
 
   useEffect(() => {
+    dispatch(onToggleSuccessModal(false));
+  }, [pathname]);
+
+  useEffect(() => {
     localStorage.setItem("checkout-form", JSON.stringify(inputFields));
 
     return () => localStorage.removeItem("checkout-form");
@@ -69,6 +75,7 @@ export default function Checkout() {
         reset();
         dispatch(onToggleSuccessModal(true));
         queryClient.invalidateQueries({ queryKey: ["carts"] });
+        queryClient.invalidateQueries({ queryKey: ["orders"] });
         dispatch(onDeleteAllCartProductFromOfflineCart());
         dispatch(onRemoveAllDbCartProduct());
       }
@@ -87,9 +94,9 @@ export default function Checkout() {
           action=""
           autoComplete="on"
           onSubmit={handleSubmit(onSubmitForm)}
-          className="flex flex-col gap-10 border lg:flex-row"
+          className="flex flex-col gap-10 lg:flex-row"
         >
-          <div className="rounded-[8px] border bg-white px-8 py-10 lg:w-[65%] lg:px-10 lg:py-12">
+          <div className="rounded-[8px] bg-white px-8 py-10 lg:w-[65%] lg:px-10 lg:py-12">
             <h4 className="font-bold uppercase">checkout</h4>
 
             {/* FORMS */}
@@ -113,5 +120,9 @@ export default function Checkout() {
   );
 }
 
-// Call the email confirmation mail on checkout success
-// fix the order history pagination
+/**
+ * Debug the error after building
+ * Remove unused vars
+ * readme
+ * fix google auth
+ */
