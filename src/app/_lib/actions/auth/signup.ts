@@ -51,7 +51,10 @@ export async function signupAction(formData: SignupSchemaType) {
     );
 
     if (emailVerificationToken) {
-      await sendEmailVerificationMail(emailVerificationToken);
+      await sendEmailVerificationMail(
+        emailVerificationToken,
+        validatedFormData.email,
+      );
     }
 
     return {

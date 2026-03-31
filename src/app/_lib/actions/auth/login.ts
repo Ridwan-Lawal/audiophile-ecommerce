@@ -44,7 +44,7 @@ export async function loginAction(data: LoginSchemaType) {
         await generateEmailVerificationToken(email);
 
       if (emailVerificationToken) {
-        await sendEmailVerificationMail(emailVerificationToken);
+        await sendEmailVerificationMail(emailVerificationToken, email);
 
         return {
           error:

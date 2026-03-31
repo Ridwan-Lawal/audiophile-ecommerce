@@ -123,7 +123,7 @@ export async function forgotPasswordAction(formData: ForgotPasswordSchemaType) {
   //   TODO: Generate a token for the email.
   const resetPasswordToken = await generateForgotPasswordToken(email);
   if (resetPasswordToken) {
-    await sendPasswordResetMail(resetPasswordToken.token!);
+    await sendPasswordResetMail(resetPasswordToken.token!, email);
   }
 
   return {
